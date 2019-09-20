@@ -1,3 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import '~bootstrap/dist/css/bootstrap.min.css';
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+body {
+    background-color: #fafafa;
+}
+
+.icon-2x {
+    transform: scale(2);
+}
+
+.icon-3x {
+    transform: scale(3);
+}
+
+.turnzo-header {
+    font-family: 'Roboto', sans-serif;
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.link-primary {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color: #673ab7;
+    font-weight: bold;
+
+}
