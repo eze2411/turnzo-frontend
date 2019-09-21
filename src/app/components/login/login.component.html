@@ -8,15 +8,26 @@
                 </div>
                 <form class="my-4">
                     <mat-form-field class="w-75">
-                        <input matInput placeholder="Email">
+                        <input type="text" matInput placeholder="Email"
+                            [formControl]="email">
+                        <mat-error *ngIf="email.invalid">Required</mat-error>  
                     </mat-form-field>
-                    <mat-form-field class="w-75">
-                        <input matInput placeholder="Password">
+                    <mat-form-field class="mt-2 w-75">
+                        <input type="text" matInput placeholder="Password"
+                            [type]="hide ? 'password' : 'text'"
+                            [formControl]="password">
+                        
+                            <button mat-icon-button matSuffix (click)="hide = !hide"
+                                [attr.aria-label]="'Hide password'"
+                                [attr.aria-pressed]="hide">                           
+                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                        <mat-error *ngIf="password.invalid">Required</mat-error>
                     </mat-form-field>
                 </form>
                 <a href="" class="link-primary"><p>Forgot password?</p></a>
                 <a href="" class="link-primary"><p>Register</p></a>
-                <button class="mt-3 submit-btn" mat-flat-button color="primary">SUBMIT</button>
+                <button class="mt-3 submit-btn" mat-flat-button color="primary" [disabled]="password.invalid || email.invalid">SUBMIT</button>
             </mat-card>
         </div>
     </div>
