@@ -25,8 +25,14 @@ body {
 
 .link-primary {
     font-family: 'Roboto', sans-serif;
-    font-size: 16px;
+    font-size: 14px;
     color: #673ab7;
     font-weight: bold;
 
+}
+
+button.submit-btn {
+    border-radius: 36px;
+    width: 125px;
+    height: 40px;
 }

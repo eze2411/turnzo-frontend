@@ -13,17 +13,20 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { HelloWorldComponent } from './components/hello-world/hello-world.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HelloWorldComponent
+    HelloWorldComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot([
-      {path: '',  component: HelloWorldComponent}
+      {path: 'hello-world',  component: HelloWorldComponent},
+      {path: '',  component: LoginComponent}
     ]),
     HttpClientModule,
     MatCardModule,
