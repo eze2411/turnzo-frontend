@@ -2,7 +2,6 @@
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
-
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
 body {
@@ -17,7 +16,13 @@ body {
     transform: scale(3);
 }
 
-.turnzo-header {
+.turnzo-logo {
+    font-family: 'Roboto', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.turnzo-logo-2x {
     font-family: 'Roboto', sans-serif;
     font-size: 48px;
     font-weight: bold;
@@ -35,4 +40,17 @@ button.submit-btn {
     border-radius: 36px;
     width: 125px;
     height: 40px;
+}
+
+.navbar-brand {
+    text-decoration: none;
+    color: black;
+}
+
+nav {
+    height: 10vh;
+}
+
+#sidebar {
+    min-height: 90vh;
 }
