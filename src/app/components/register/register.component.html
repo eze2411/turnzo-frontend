@@ -1,0 +1,60 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="text-center d-flex mx-auto align-items-center" style="height:100vh;width: 380px;">
+            <mat-card class="py-5">
+                <div class="row px-5 align-items-center justify-content-around" style="
+                margin-bottom: 25px;">
+                    <mat-icon color="primary" class="icon-3x">event</mat-icon>
+                    <span class="turnzo-header">TURNZO</span>
+                </div>
+                <form class="my-8">
+                    <mat-form-field class="w-75">
+                        <input type="text" matInput placeholder="Email"
+                            [formControl]="email">
+                        <mat-error *ngIf="email.invalid">Required</mat-error>  
+                    </mat-form-field>
+                  
+                    <mat-form-field class="mt-2 w-75">
+                        <input type="text" matInput placeholder="FirstName"
+                            [formControl]="firstname">
+                        <mat-error *ngIf="firstname.invalid">Required</mat-error>  
+                    </mat-form-field>
+
+                    <mat-form-field class="mt-2 w-75">
+                        <input type="text" matInput placeholder="Lastname"
+                            [formControl]="lastname">
+                        <mat-error *ngIf="lastname.invalid">Required</mat-error>  
+                    </mat-form-field>
+
+                    <mat-form-field class="mt-2 w-75">
+                        <input matInput [matDatepicker]="picker" placeholder="Birthday"
+                            [formControl]="birthday">
+                        <mat-datepicker-toggle matDatepicker="picker" matSuffix [for]="picker"></mat-datepicker-toggle>
+                         
+                        <mat-datepicker #picker></mat-datepicker> 
+                        <mat-error *ngIf="birthday.invalid">Required</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="mt-2 w-75">
+                        <input type="text" matInput placeholder="Password"
+                            [type]="hide ? 'password' : 'text'"
+                            [formControl]="password">
+                        
+                            <button mat-icon-button matSuffix (click)="hide = !hide"
+                                [attr.aria-label]="'Hide password'"
+                                [attr.aria-pressed]="hide">                           
+                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                        <mat-error *ngIf="password.invalid">Required</mat-error>
+                    </mat-form-field>
+
+                </form>
+                <br>
+                    <mat-checkbox color = primary [(ngModel)]="terms">Accept terms and conditions</mat-checkbox>
+                <br>
+           
+                <button class="mt-3 submit-btn" mat-flat-button color="primary" [disabled]="password.invalid || email.invalid || firstname.invalid || lastname.invalid || birthday.invalid || terms.false">SUBMIT</button>
+            </mat-card>
+        </div>
+    </div>
+</div>
