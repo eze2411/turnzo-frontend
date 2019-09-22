@@ -15,19 +15,22 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { HelloWorldComponent } from './components/hello-world/hello-world.component';
 import { LoginComponent } from './components/login/login.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HelloWorldComponent,
-    LoginComponent
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot([
       {path: 'hello-world',  component: HelloWorldComponent},
-      {path: '',  component: LoginComponent}
+      {path: '',  component: LoginComponent},
+      {path: 'home',  component: HomeComponent}
     ]),
     HttpClientModule,
     MatCardModule,
