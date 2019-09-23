@@ -50,7 +50,7 @@
 
                 </form>
                 <br>
-                    <mat-checkbox color = primary [(ngModel)]="terms">Accept terms and conditions</mat-checkbox>
+                    <mat-checkbox color = primary [(ngModel)]="terms" value="checked">Accept terms and conditions</mat-checkbox>
                 <br>
            
                 <button class="mt-3 submit-btn" mat-flat-button color="primary" [disabled]="password.invalid || email.invalid || firstname.invalid || lastname.invalid || birthday.invalid || terms.false">SUBMIT</button>
