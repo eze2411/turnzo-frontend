@@ -14,6 +14,7 @@ export class CalendarComponent implements OnInit {
   ngOnInit() {
     setTimeout(() => {
       $("#calendar").fullCalendar({
+        height: 600,
         header: {
           left: 'prev,next today',
           center: 'title',
