@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { CreateEventDialogComponent } from './create-event-dialog/create-event-dialog.component';
+
+export interface DialogData {
+
+}
 
 @Component({
   selector: 'app-sidebar',
@@ -7,9 +13,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
+  }
+
+  createEventDialog(): void {
+    const dialogRef = this.dialog.open(CreateEventDialogComponent, {
+      width: '800px'
+    });
+
+    console.log('The dialog was opened');
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 
 }
