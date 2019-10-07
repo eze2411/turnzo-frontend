@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CreateEventDialogComponent } from './create-event-dialog/create-event-dialog.component';
 
 export interface DialogData {
@@ -20,7 +20,7 @@ export class SidebarComponent implements OnInit {
 
   createEventDialog(): void {
     const dialogRef = this.dialog.open(CreateEventDialogComponent, {
-      width: '800px'
+      width: '500px'
     });
 
     console.log('The dialog was opened');

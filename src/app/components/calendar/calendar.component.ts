@@ -26,20 +26,30 @@ export class CalendarComponent implements OnInit {
         events: [
           {
             title: 'This is your',
-            start: '2019-03-03T12:30:00',
-            color: '#f9c66a' // override!
+            start: '2019-10-03T12:30:00',
+            color: '#d2a8ff' // override!
+          },
+          {
+            title: 'This is your 2',
+            start: '2019-10-03T16:30:00',
+            color: '#d2a8ff' // override!
+          },
+          {
+            title: 'This is your 3',
+            start: '2019-10-03T18:30:00',
+            color: '#d2a8ff' // override!
           },
           {
             title: 'Your meeting with john',
-            start: '2019-03-07T12:30:00',
+            start: '2019-10-07T12:30:00',
             end: '2019-03-09',
-            color: "#019efb"
+            color: "#d2a8ff"
           },
           {
             title: 'This is Today',
-            start: '2019-03-12T12:30:00',
+            start: '2019-10-12T12:30:00',
             allDay: false, // will make the time show,
-            color: "#57cd5f"
+            color: "#d2a8ff"
           }
         ],  // request to load current events
       });

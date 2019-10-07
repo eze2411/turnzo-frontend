@@ -9,7 +9,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -21,6 +26,8 @@ import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
+import { CreateEventDialogComponent } from './components/sidebar/create-event-dialog/create-event-dialog.component';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +37,11 @@ import { CalendarComponent } from './components/calendar/calendar.component';
     HomeComponent,
     NavbarComponent,
     SidebarComponent,
-    CalendarComponent
+    CalendarComponent,
+    CreateEventDialogComponent
+  ],
+  entryComponents: [
+    CreateEventDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -41,16 +52,21 @@ import { CalendarComponent } from './components/calendar/calendar.component';
     NgbModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    MatButtonToggleModule,
     MatIconModule,
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      {path: 'hello-world',  component: HelloWorldComponent},
-      {path: '',  component: LoginComponent},
-      {path: 'home',  component: HomeComponent}
+      { path: 'hello-world', component: HelloWorldComponent },
+      { path: '', component: LoginComponent },
+      { path: 'home', component: HomeComponent }
     ])
   ],
-  providers: [],
+  providers: [MatDatepickerModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
