@@ -28,13 +28,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css",
-              "node_modules/fullcalendar/dist/fullcalendar.min.css"
+              "src/styles.css"
             ],
-            "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/moment/min/moment.min.js",
-              "node_modules/fullcalendar/dist/fullcalendar.min.js"]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -98,14 +94,9 @@
             ],
             "styles": [
               "src/styles.css",
-              "node_modules/bootstrap/dist/css/bootstrap.css",
-              "node_modules/fullcalendar/dist/fullcalendar.min.css"
+              "node_modules/bootstrap/dist/css/bootstrap.css"
             ],
-            "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/moment/min/moment.min.js",
-              "node_modules/fullcalendar/dist/fullcalendar.min.js"
-            ]
+            "scripts": []
           }
         },
         "lint": {

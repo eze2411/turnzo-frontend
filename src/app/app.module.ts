@@ -28,6 +28,9 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { CreateEventDialogComponent } from './components/sidebar/create-event-dialog/create-event-dialog.component';
 
+import { FullCalendarModule } from '@fullcalendar/angular';
+
+
 
 @NgModule({
   declarations: [
@@ -60,6 +63,7 @@ import { CreateEventDialogComponent } from './components/sidebar/create-event-di
     MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
+    FullCalendarModule,
     RouterModule.forRoot([
       { path: 'hello-world', component: HelloWorldComponent },
       { path: '', component: LoginComponent },
