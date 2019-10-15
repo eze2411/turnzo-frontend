@@ -1,5 +1,5 @@
 <div class="container col-11 p-5">
-	<form action="">
+	<form [formGroup]="eventForm">
 		<div class="row">
 			<mat-form-field class="w-100">
 				<input type="text" matInput placeholder="Add a title">
@@ -15,23 +15,27 @@
 			<div class="row">
 				<mat-form-field class="w-50">
 					<mat-icon (click)="picker.open()" class="icon-prefix" matPrefix>access_time</mat-icon>
-					<input matInput (click)="picker.open()" [matDatepicker]="picker" placeholder="Date and time">
+					<input matInput (change)="matChange($event)" (click)="picker.open()" [matDatepicker]="picker" placeholder="Date and time">
 					<mat-datepicker #picker></mat-datepicker>
 				</mat-form-field>
 				<mat-form-field class="w-25">
-					<mat-label>Starts</mat-label>
-					<mat-select>
-						<mat-option>Opcion</mat-option>
-						<mat-option>Opcion</mat-option>
-						<mat-option>Opcion</mat-option>
+					<mat-label>Start</mat-label>
+					<mat-select [(value)]="start">
+					  <mat-option>None</mat-option>
+					  <mat-option value="option1">Option 1</mat-option>
+					  <mat-option value="option2">Option 2</mat-option>
+					  <mat-option value="option3">Option 3</mat-option>
 					</mat-select>
-				</mat-form-field>
+				  </mat-form-field>
 				<mat-form-field class="w-25">
-					<mat-label>Ends</mat-label>
-					<mat-select>
-						<mat-option>Opcion</mat-option>
+					<mat-label>End</mat-label>
+					<mat-select [(value)]="end">
+					  <mat-option>None</mat-option>
+					  <mat-option value="option1">Option 1</mat-option>
+					  <mat-option value="option2">Option 2</mat-option>
+					  <mat-option value="option3">Option 3</mat-option>
 					</mat-select>
-				</mat-form-field>
+				  </mat-form-field>
 			</div>
 			<div class="row">
 				<mat-form-field class="w-100">
