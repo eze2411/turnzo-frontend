@@ -11,13 +11,13 @@ import { FormControl, Validators } from '@angular/forms';
 
 export class RegisterComponent implements OnInit {
   hide = true;
+  terms = false;
   firstname = new FormControl('', [Validators.required]);
   lastname = new FormControl('', [Validators.required]);
-  birthday = new FormControl('', [Validators.required]);
+  birthdate = new FormControl('', [Validators.required]);
   email = new FormControl('', [Validators.required]);
   password = new FormControl('', [Validators.required]);
-  terms = new FormControl('', [Validators.required]);
-  chkTerms = new FormControl('', [Validators.required]);
+  
   constructor() { }
 
   ngOnInit() {
