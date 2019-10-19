@@ -1,26 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
-  
+	selector: 'app-register',
+	templateUrl: './register.component.html',
+	styleUrls: ['./register.component.scss']
+
 })
 
 export class RegisterComponent implements OnInit {
-  hide = true;
-  terms = false;
-  firstname = new FormControl('', [Validators.required]);
-  lastname = new FormControl('', [Validators.required]);
-  birthdate = new FormControl('', [Validators.required]);
-  email = new FormControl('', [Validators.required]);
-  password = new FormControl('', [Validators.required]);
-  
-  constructor() { }
 
-  ngOnInit() {
-  }
+	hide = true;
+	registerForm: FormGroup;
+
+	constructor(private fb: FormBuilder) {
+		this.registerForm = this.fb.group({
+			firstname: new FormControl('', [Validators.required]),
+			lastname: new FormControl('', [Validators.required]),
+			birthdate: new FormControl('', [Validators.required]),
+			email: new FormControl('', [Validators.required]),
+			password: new FormControl('', [Validators.required]),
+			terms: new FormControl('', [Validators.required])
+		  })
+	 }
+
+	ngOnInit() {
+
+	}
 
 }

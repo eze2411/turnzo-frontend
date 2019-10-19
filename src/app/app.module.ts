@@ -32,7 +32,7 @@ import { RegisterComponent } from './components/register/register.component';
     AppRoutingModule,
     RouterModule.forRoot([
       {path: 'hello-world',  component: HelloWorldComponent},
-      {path: '',  component: LoginComponent},
+      {path: 'login',  component: LoginComponent},
       {path: 'register',  component: RegisterComponent}
     ]),
     HttpClientModule,
