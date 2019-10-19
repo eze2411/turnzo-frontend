@@ -12,22 +12,28 @@ import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { HelloWorldComponent } from './components/hello-world/hello-world.component';
 import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HelloWorldComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot([
       {path: 'hello-world',  component: HelloWorldComponent},
-      {path: '',  component: LoginComponent}
+      {path: 'login',  component: LoginComponent},
+      {path: 'register',  component: RegisterComponent}
     ]),
     HttpClientModule,
     MatCardModule,
@@ -38,8 +44,15 @@ import { LoginComponent } from './components/login/login.component';
     MatIconModule,
     FormsModule,
     ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCheckboxModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
+
 })
 export class AppModule { }
+
+
