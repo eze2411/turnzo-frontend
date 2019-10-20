@@ -9,7 +9,8 @@
                 <form class="w-75 m-auto" [formGroup]="registerForm">
                     <mat-form-field class="w-100 w-lg-75">
                         <input type="text" matInput placeholder="Email" formControlName="email">
-                        <mat-error *ngIf="registerForm.get('email').invalid">Required</mat-error>
+                        <mat-error *ngIf="registerForm.get('email').hasError('required')">Required</mat-error>
+                        <mat-error *ngIf="registerForm.get('email').hasError('email')">Enter a valid email address</mat-error>
                     </mat-form-field>
 
                     <mat-form-field class="mt-1 w-100 w-lg-75">
@@ -23,9 +24,8 @@
                     </mat-form-field>
 
                     <mat-form-field class="mt-1 w-100 w-lg-75">
-                        <input matInput [matDatepicker]="picker" placeholder="Birthdate" formControlName="birthdate">
+                        <input matInput [matDatepicker]="picker" (click)="picker.open()" placeholder="Birthdate" formControlName="birthdate">
                         <mat-datepicker-toggle matDatepicker="picker" matSuffix [for]="picker"></mat-datepicker-toggle>
-
                         <mat-datepicker #picker></mat-datepicker>
                         <mat-error *ngIf="registerForm.get('birthdate').invalid">Required</mat-error>
                     </mat-form-field>
@@ -40,9 +40,10 @@
                         </button>
                         <mat-error *ngIf="registerForm.get('password').invalid">Required</mat-error>
                     </mat-form-field>
-                    <mat-checkbox class="mt-5" formControlName="terms">I accept terms and conditions</mat-checkbox>
+                    <mat-checkbox class="mt-5" formControlName="terms" #terms (click)="changeStatus()">I accept terms and conditions</mat-checkbox>
+                    <mat-error class="req-error" *ngIf="isInvalidTerms">You must accept terms and conditions</mat-error>
                 </form>
-                <button class="submit-btn mt-2" mat-flat-button color="primary">SUBMIT</button>
+                <button class="submit-btn mt-2" mat-flat-button color="primary" (click)="validateForm()">SUBMIT</button>
             </mat-card>
         </div>
     </div>
