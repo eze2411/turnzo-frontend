@@ -19,13 +19,17 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { HelloWorldComponent } from './components/hello-world/hello-world.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { RegisterFormComponent } from './components/register/register-form/register-form.component';
+import { RegisterSuccessComponent } from './components/register/register-success/register-success.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HelloWorldComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    RegisterFormComponent,
+    RegisterSuccessComponent
   ],
   imports: [
     BrowserModule,
