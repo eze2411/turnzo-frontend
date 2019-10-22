@@ -15,6 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { HelloWorldComponent } from './components/hello-world/hello-world.component';
 import { LoginComponent } from './components/login/login.component';
@@ -50,7 +51,8 @@ import { RegisterSuccessComponent } from './components/register/register-success
     ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSnackBarModule
 
   ],
   providers: [],

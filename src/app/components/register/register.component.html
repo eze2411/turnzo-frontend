@@ -1,2 +1,2 @@
-<app-register-form *ngIf="!onSuccess"></app-register-form>
-<app-register-success *ngIf="onSuccess"></app-register-success>
+<app-register-form *ngIf="!onSuccess" (onSuccess)="setSuccess()"></app-register-form>
+<app-register-success *ngIf="onSuccess" ></app-register-success>

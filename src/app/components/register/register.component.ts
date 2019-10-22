@@ -14,4 +14,8 @@ export class RegisterComponent implements OnInit {
     this.onSuccess = false;
   }
 
+  setSuccess() {
+    this.onSuccess = true;
+  }
+
 }

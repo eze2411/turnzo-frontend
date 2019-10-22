@@ -16,6 +16,10 @@ body {
     transform: scale(3);
 }
 
+.icon-4x {
+    transform: scale(4);
+}
+
 .turnzo-header {
     font-family: 'Roboto', sans-serif;
     font-size: 48px;

@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { UserService } from 'src/app/services/user.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -12,13 +13,16 @@ import { UserService } from 'src/app/services/user.service';
 })
 
 export class RegisterFormComponent implements OnInit {
-	message: string;
+	message: any;
 	@ViewChild('terms', { static: false }) terms;
 	hide = true;
 	registerForm: FormGroup;
 	isInvalidTerms: Boolean;
 
-	constructor(private fb: FormBuilder, private userService:UserService) {
+	@Output() onSuccess: EventEmitter<Boolean> = new EventEmitter<Boolean>();
+	@Output() onError: EventEmitter<Boolean> = new EventEmitter<Boolean>();
+
+	constructor(private fb: FormBuilder, private userService:UserService, private _snackBar: MatSnackBar) {
 		this.registerForm = this.fb.group({
 			firstname: new FormControl('', [Validators.required]),
 			lastname: new FormControl('', [Validators.required]),
@@ -41,15 +45,33 @@ export class RegisterFormComponent implements OnInit {
 			let role = "ADMIN";
 			let email = this.registerForm.get('email').value;
 			let password = this.registerForm.get('password').value;
-			this.userService.registerUser(firstname, lastname, birthdate, role, email, password).subscribe(data=>this.message = data);
-			return console.log('isValid: ' + this.message);
+			this.postUserDataToApi(firstname, lastname, birthdate, role ,email, password);
 		} else {
 			if(this.registerForm.get('terms').hasError) {
 				this.isInvalidTerms = true;
 			}
 			Object.keys(this.registerForm.controls).forEach(field => this.registerForm.get(field).markAsTouched({ onlySelf: true }));
-			return console.log('invalid');
 		}
+	}
+
+	postUserDataToApi(firstname, lastname, birthdate, role, email, password) {
+		this.userService.registerUser(firstname, lastname, birthdate, role, email, password)
+		.subscribe(
+			data => {
+				this.message = data;
+				this.onSuccess.emit();
+			},
+			error => {
+				console.log(JSON.parse(error).status);
+				console.log(JSON.parse(error).message);
+				
+				this._snackBar.open("There was a problem with your request, try again later", "Cancel", {
+					duration: 3000,
+				  });
+				// mandar a pantalla de error
+			},
+			() => console.log('isValid: ' + this.message.status)
+			);
 	}
 
 	changeTermsStatus() {
