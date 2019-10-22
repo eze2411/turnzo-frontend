@@ -15,17 +15,22 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { HelloWorldComponent } from './components/hello-world/hello-world.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { RegisterFormComponent } from './components/register/register-form/register-form.component';
+import { RegisterSuccessComponent } from './components/register/register-success/register-success.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HelloWorldComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    RegisterFormComponent,
+    RegisterSuccessComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +51,8 @@ import { RegisterComponent } from './components/register/register.component';
     ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSnackBarModule
 
   ],
   providers: [],
