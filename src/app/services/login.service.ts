@@ -4,22 +4,18 @@ import {throwError as observableThrowError, Observable} from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 const headers = new HttpHeaders({'Content-Type':'application/json; charset=utf-8'})
-const apiUrl = "http://localhost:3000/user"
+const apiUrl = "http://localhost:3000/login"
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class LoginService {
 
   constructor(private http: HttpClient) { }
 
-  registerUser(firstname: string, lastname: string, birthdate: string, role: string, email: string, password: string ): Observable<any> {
+  loginUser(email: string, password: string): Observable<any> {
     let body = {
-      'firstName': firstname,
-      'lastName': lastname,
       'email': email,
-      'role': role,
-      'birthdate': birthdate,
       'password': password
     };
     return this.http.post(apiUrl, body, {headers}).pipe(this.extractData, catchError(this.handleError))
