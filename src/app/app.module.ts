@@ -8,7 +8,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -19,6 +23,15 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { HelloWorldComponent } from './components/hello-world/hello-world.component';
 import { LoginComponent } from './components/login/login.component';
+import { HomeComponent } from './components/home/home.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { CreateEventDialogComponent } from './components/dialogs/create-event-dialog/create-event-dialog.component';
+
+import { FullCalendarModule } from '@fullcalendar/angular';
+
+
 import { RegisterComponent } from './components/register/register.component';
 import { RegisterFormComponent } from './components/register/register-form/register-form.component';
 import { RegisterSuccessComponent } from './components/register/register-success/register-success.component';
@@ -30,7 +43,15 @@ import { RegisterSuccessComponent } from './components/register/register-success
     LoginComponent,
     RegisterComponent,
     RegisterFormComponent,
-    RegisterSuccessComponent
+    RegisterSuccessComponent,
+    HomeComponent,
+    NavbarComponent,
+    SidebarComponent,
+    CalendarComponent,
+    CreateEventDialogComponent
+  ],
+  entryComponents: [
+    CreateEventDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +59,8 @@ import { RegisterSuccessComponent } from './components/register/register-success
     RouterModule.forRoot([
       {path: 'hello-world',  component: HelloWorldComponent},
       {path: 'login',  component: LoginComponent},
-      {path: 'register',  component: RegisterComponent}
+      {path: 'register',  component: RegisterComponent},
+      {path: 'home', component: HomeComponent}
     ]),
     HttpClientModule,
     MatCardModule,
@@ -46,19 +68,20 @@ import { RegisterSuccessComponent } from './components/register/register-success
     NgbModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    MatButtonToggleModule,
     MatIconModule,
-    FormsModule,
-    ReactiveFormsModule,
+    MatDialogModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatSelectModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FullCalendarModule,
     MatCheckboxModule,
     MatSnackBarModule
 
   ],
-  providers: [],
+  providers: [MatDatepickerModule],
   bootstrap: [AppComponent]
-
 })
 export class AppModule { }
-
-

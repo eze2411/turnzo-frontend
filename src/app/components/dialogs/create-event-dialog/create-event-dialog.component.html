@@ -1,0 +1,59 @@
+<div class="container col-11 p-5">
+	<form [formGroup]="eventForm">
+		<div class="row">
+			<mat-form-field class="w-100">
+				<input type="text" matInput placeholder="Add a title">
+			</mat-form-field>
+		</div>
+		<div mat-dialog-content>
+			<div class="row mb-3">
+				<mat-button-toggle-group>
+					<mat-button-toggle class="d-flex align-items-center" value="turnzo">Turnzo</mat-button-toggle>
+					<mat-button-toggle class="d-flex align-items-center" value="lock">Lock</mat-button-toggle>
+				</mat-button-toggle-group>
+			</div>
+			<div class="row">
+				<mat-form-field class="w-50">
+					<mat-icon (click)="picker.open()" class="icon-prefix" matPrefix>access_time</mat-icon>
+					<input matInput (change)="matChange($event)" (click)="picker.open()" [matDatepicker]="picker" placeholder="Date and time">
+					<mat-datepicker #picker></mat-datepicker>
+				</mat-form-field>
+				<mat-form-field class="w-25">
+					<mat-label>Start</mat-label>
+					<mat-select [(value)]="start">
+					  <mat-option>None</mat-option>
+					  <mat-option value="option1">Option 1</mat-option>
+					  <mat-option value="option2">Option 2</mat-option>
+					  <mat-option value="option3">Option 3</mat-option>
+					</mat-select>
+				  </mat-form-field>
+				<mat-form-field class="w-25">
+					<mat-label>End</mat-label>
+					<mat-select [(value)]="end">
+					  <mat-option>None</mat-option>
+					  <mat-option value="option1">Option 1</mat-option>
+					  <mat-option value="option2">Option 2</mat-option>
+					  <mat-option value="option3">Option 3</mat-option>
+					</mat-select>
+				  </mat-form-field>
+			</div>
+			<div class="row">
+				<mat-form-field class="w-100">
+					<mat-icon class="icon-prefix" matPrefix>people_alt</mat-icon>
+					<input type="text" matInput placeholder="Add patients">
+				</mat-form-field>
+			</div>
+
+			<div class="row">
+				<mat-form-field class="w-100">
+					<mat-icon class="icon-prefix" matPrefix>description</mat-icon>
+					<textarea matInput placeholder="Add a description"></textarea>
+				</mat-form-field>
+			</div>
+		</div>
+		<div mat-dialog-actions class="row justify-content-end">
+			<button mat-flat-button (click)="closeCreateEventDialog()">Cancel</button>
+			<button mat-flat-button color="primary" (click)="closeCreateEventDialog()">Save</button>
+		</div>
+	</form>
+</div>
