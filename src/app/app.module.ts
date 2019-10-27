@@ -11,8 +11,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -45,7 +43,7 @@ import { RegisterSuccessComponent } from './components/register/register-success
     LoginComponent,
     RegisterComponent,
     RegisterFormComponent,
-    RegisterSuccessComponent
+    RegisterSuccessComponent,
     HomeComponent,
     NavbarComponent,
     SidebarComponent,
@@ -78,9 +76,7 @@ import { RegisterSuccessComponent } from './components/register/register-success
     MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
-    FullCalendarModule
-    MatDatepickerModule,
-    MatNativeDateModule,
+    FullCalendarModule,
     MatCheckboxModule,
     MatSnackBarModule
 
