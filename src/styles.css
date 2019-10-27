@@ -18,6 +18,10 @@ body {
     transform: scale(3);
 }
 
+.icon-4x {
+    transform: scale(4);
+}
+
 .turnzo-logo {
     font-family: 'Roboto', sans-serif;
     font-size: 24px;
@@ -36,6 +40,12 @@ body {
     color: #673ab7;
     font-weight: bold;
 
+}
+
+button.submit-btn {
+  border-radius: 36px;
+  width: 125px;
+  height: 40px;
 }
 
 button.create-btn {

@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -19,6 +18,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { HelloWorldComponent } from './components/hello-world/hello-world.component';
 import { LoginComponent } from './components/login/login.component';
@@ -31,12 +34,18 @@ import { CreateEventDialogComponent } from './components/dialogs/create-event-di
 import { FullCalendarModule } from '@fullcalendar/angular';
 
 
+import { RegisterComponent } from './components/register/register.component';
+import { RegisterFormComponent } from './components/register/register-form/register-form.component';
+import { RegisterSuccessComponent } from './components/register/register-success/register-success.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HelloWorldComponent,
     LoginComponent,
+    RegisterComponent,
+    RegisterFormComponent,
+    RegisterSuccessComponent
     HomeComponent,
     NavbarComponent,
     SidebarComponent,
@@ -49,6 +58,12 @@ import { FullCalendarModule } from '@fullcalendar/angular';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    RouterModule.forRoot([
+      {path: 'hello-world',  component: HelloWorldComponent},
+      {path: 'login',  component: LoginComponent},
+      {path: 'register',  component: RegisterComponent},
+      {path: 'home', component: HomeComponent}
+    ]),
     HttpClientModule,
     MatCardModule,
     MatInputModule,
@@ -63,12 +78,12 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
-    FullCalendarModule,
-    RouterModule.forRoot([
-      { path: 'hello-world', component: HelloWorldComponent },
-      { path: '', component: LoginComponent },
-      { path: 'home', component: HomeComponent }
-    ])
+    FullCalendarModule
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCheckboxModule,
+    MatSnackBarModule
+
   ],
   providers: [MatDatepickerModule],
   bootstrap: [AppComponent]
