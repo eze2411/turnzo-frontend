@@ -39,7 +39,7 @@
                         </button>
                         <mat-error *ngIf="registerForm.get('password').invalid">Required</mat-error>
                     </mat-form-field>
-                    <mat-checkbox class="mt-5" formControlName="terms" #terms (click)="changeTermsStatus()">I accept terms and conditions</mat-checkbox>
+                    <mat-checkbox color="primary" class="mt-5" formControlName="terms" #terms (click)="changeTermsStatus()">I accept terms and conditions</mat-checkbox>
                     <mat-error class="req-error" *ngIf="isInvalidTerms">You must accept terms and conditions</mat-error>
                 </form>
                 <button class="submit-btn mt-2" mat-flat-button color="primary" (click)="validateForm()">SUBMIT</button>
