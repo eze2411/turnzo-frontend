@@ -1,6 +1,6 @@
 // src/app/shared/models/event.model.ts
 
-import { UserModel } from "./user.model";
+import { User } from "./User.model";
 
 export class EventModel {
     id: number;
@@ -9,5 +9,5 @@ export class EventModel {
     date: any;
     start: any;
     end: any;
-    patient: UserModel[];
+    patient: User[];
 }

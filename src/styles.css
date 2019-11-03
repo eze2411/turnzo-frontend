@@ -36,10 +36,17 @@ body {
 
 .link-primary {
     font-family: 'Roboto', sans-serif;
-    font-size: 14px;
     color: #673ab7;
     font-weight: bold;
+    cursor: pointer;
+}
 
+.font-14 {
+  font-size: 14px;
+}
+
+.font-16 {
+  font-size: 16px;
 }
 
 button.submit-btn {
@@ -61,7 +68,7 @@ button.create-btn {
 }
 
 nav {
-    height: 10vh;
+    height: 70px;
 }
 
 #sidebar {

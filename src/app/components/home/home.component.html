@@ -1,10 +1,16 @@
 <app-navbar></app-navbar>
 <div class="container-fluid">
-    <div class="row">
+    <div *ngIf="userData.role == 'ADMIN'" class="row">
         <div class="col-md-2 bg-white">
             <app-sidebar></app-sidebar>
         </div>
         <div class="col-md-10 bg-white">
+            <app-calendar></app-calendar>
+        </div>
+    </div>
+
+    <div *ngIf="userData.role != 'ADMIN'" class="row">
+        <div class="col bg-white">
             <app-calendar></app-calendar>
         </div>
     </div>

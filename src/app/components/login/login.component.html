@@ -23,12 +23,8 @@
                         <mat-error *ngIf="loginForm.get('password').invalid">Required</mat-error>
                     </mat-form-field>
                 </form>
-                <a href="" class="link-primary">
-                    <p>Forgot password?</p>
-                </a>
-                <a href="" class="link-primary">
-                    <p>Register</p>
-                </a>
+              <p class="link-primary font-14">Forgot password?</p>
+              <p class="link-primary font-14" (click)="goRegister()">Register</p>
                 <button class="mt-2 submit-btn" mat-flat-button color="primary" (click)="validateForm()">SUBMIT</button>
             </mat-card>
         </div>
