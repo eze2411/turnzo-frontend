@@ -1,11 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import {MatDialog} from '@angular/material/dialog';
-import {CreateEventDialogComponent} from '../../dialogs/create-event-dialog/create-event-dialog.component';
+import { MatDialog} from '@angular/material/dialog';
+import { CreateEventDialogComponent } from '../../dialogs/create-event-dialog/create-event-dialog.component';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGrigPlugin from '@fullcalendar/timegrid';
-import {AppStorageService} from "../../../services/app-storage.service";
-import {ConfirmEventDialogComponent} from "../../dialogs/confirm-event-dialog/confirm-event-dialog.component";
+import { AppStorageService } from "../../../services/app-storage.service";
+import { ConfirmEventDialogComponent } from "../../dialogs/confirm-event-dialog/confirm-event-dialog.component";
+import { EventService } from "../../../services/event.service";
+
+export interface DialogData {
+    date: any
+}
 
 @Component({
     selector: 'app-calendar',
@@ -14,32 +19,40 @@ import {ConfirmEventDialogComponent} from "../../dialogs/confirm-event-dialog/co
 })
 export class CalendarComponent implements OnInit {
     userData: any;
+    calendarData: any;
 
-    calendarPlugins = [dayGridPlugin, timeGrigPlugin, interactionPlugin];
-    calendarEvents: any;
-    calendarDefaultView: string;
-
-    calendarHeader: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-    };
-
-
-    constructor(public dialog: MatDialog, private storage: AppStorageService) {
+    constructor(public dialog: MatDialog, private storage: AppStorageService, private eventService: EventService) {
     }
 
     ngOnInit() {
         this.userData = this.storage.getStoredUser();
-        this.calendarDefaultView = this.userData.role == 'ADMIN' ? 'dayGridMonth' : 'timeGridWeek';
-        this.calendarEvents = [
-            {
-                title: 'The Title',
-                start: '2019-11-04T16:00:00',
-                end: '2019-11-04T17:00:00',
-                allDay: false
-            }
-        ];
+        this.renderAllEvents();
+    }
+
+    renderAllEvents() {
+        this.eventService.getAllEvents()
+            .subscribe(
+                data => {
+                    this.calendarData = {
+                        plugins: [dayGridPlugin, timeGrigPlugin, interactionPlugin],
+                        header: {left: '', center: 'title', right: 'prev,next, today'},
+                        editable: false,
+                        eventLimit: true,
+                        height: 'auto',
+                        allDaySlot: false,
+                        minTime: '09:00:00',
+                        maxTime: '20:00:00',
+                        defaultView: this.userData.role == 'ADMIN' ? 'dayGridMonth' : 'timeGridWeek',
+                        events: data.events[0]
+                    };
+                },
+                error => {
+                    console.log(JSON.parse(error).status);
+                    console.log(JSON.parse(error).message);
+                    // mandar a pantalla de error
+                },
+                () => console.log(this.calendarData.events)
+            );
     }
 
     onEventClick(event) {

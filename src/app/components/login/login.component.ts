@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
     }
 
     postUserLoginToApi(email: string, password: string) {
-        this.loginService.loginUser2(email, password)
+        this.loginService.loginUser(email, password)
             .then((res) => {
                 this.router.navigate([''])
             })

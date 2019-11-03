@@ -1,20 +1,15 @@
-<full-calendar class="p-3"
-               defaultView="{{ calendarDefaultView }}"
-               [header]="{left: 'prev,next today',
-        center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'}"
-               eventLimit="true"
-               [plugins]="calendarPlugins"
-               editable="true"
-               (eventClick)="onEventClick($event)"
-               (dateClick)="onDateClick($event)"
-               [events]="[
-            {
-                title: 'The Title',
-                date: '2019-11-04',
-                startTime: '16:00:00',
-                endTime: '17:00:00',
-                allDay: false
-            }
-        ]">
+<full-calendar
+        *ngIf="calendarData"
+        [height]="calendarData.height"
+        [allDaySlot]="calendarData.allDaySlot"
+        [minTime]="calendarData.minTime"
+        [maxTime]="calendarData.maxTime"
+        [defaultView]="calendarData.defaultView"
+        [header]="calendarData.header"
+        [eventLimit]="calendarData.eventLimit"
+        [plugins]="calendarData.plugins"
+        [editable]="calendarData.editable"
+        (eventClick)="onEventClick($event)"
+        (dateClick)="onDateClick($event)"
+        [events]="calendarData.events">
 </full-calendar>

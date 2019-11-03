@@ -36,6 +36,7 @@ import {FullCalendarModule} from '@fullcalendar/angular';
 import {StorageServiceModule} from 'ngx-webstorage-service';
 import {AppStorageService} from './services/app-storage.service';
 import { ConfirmEventDialogComponent } from './components/dialogs/confirm-event-dialog/confirm-event-dialog.component';
+import { A11yModule } from "@angular/cdk/a11y";
 
 export function tokenGetter() {
     return localStorage.getItem("access_token");
@@ -57,7 +58,8 @@ export function tokenGetter() {
         ConfirmEventDialogComponent
     ],
     entryComponents: [
-        CreateEventDialogComponent
+        CreateEventDialogComponent,
+        ConfirmEventDialogComponent
     ],
     imports: [
         BrowserModule,
@@ -86,7 +88,8 @@ export function tokenGetter() {
         FullCalendarModule,
         MatCheckboxModule,
         MatSnackBarModule,
-        StorageServiceModule
+        StorageServiceModule,
+        A11yModule
     ],
     providers: [AppStorageService,
         MatDatepickerModule],

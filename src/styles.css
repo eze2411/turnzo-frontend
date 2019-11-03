@@ -5,6 +5,7 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 @import '~@fullcalendar/core/main.css';
 @import '~@fullcalendar/daygrid/main.css';
+@import '~@fullcalendar/timegrid/main.css';
 
 body {
     background-color: #fafafa;
