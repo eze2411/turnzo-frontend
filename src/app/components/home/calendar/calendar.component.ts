@@ -19,13 +19,25 @@ export interface DialogData {
 })
 export class CalendarComponent implements OnInit {
     userData: any;
-    calendarData: any;
+    calendarData = {
+        plugins: [dayGridPlugin, timeGrigPlugin, interactionPlugin],
+        header: {left: "", center: "title", right: "prev,next, today"},
+        editable: false,
+        eventLimit: true,
+        height: 'auto',
+        allDaySlot: false,
+        minTime: '09:00:00',
+        maxTime: '20:00:00',
+        events: [],
+        defaultView: ''
+    };
 
     constructor(public dialog: MatDialog, private storage: AppStorageService, private eventService: EventService) {
     }
 
     ngOnInit() {
         this.userData = this.storage.getStoredUser();
+        this.calendarData.defaultView = this.userData.role == 'ADMIN' ? 'dayGridMonth' : 'timeGridWeek';
         this.renderAllEvents();
     }
 
@@ -33,18 +45,7 @@ export class CalendarComponent implements OnInit {
         this.eventService.getAllEvents()
             .subscribe(
                 data => {
-                    this.calendarData = {
-                        plugins: [dayGridPlugin, timeGrigPlugin, interactionPlugin],
-                        header: {left: '', center: 'title', right: 'prev,next, today'},
-                        editable: false,
-                        eventLimit: true,
-                        height: 'auto',
-                        allDaySlot: false,
-                        minTime: '09:00:00',
-                        maxTime: '20:00:00',
-                        defaultView: this.userData.role == 'ADMIN' ? 'dayGridMonth' : 'timeGridWeek',
-                        events: data.events[0]
-                    };
+                    this.calendarData.events = data.events[0]
                 },
                 error => {
                     console.log(JSON.parse(error).status);
