@@ -75,3 +75,8 @@ nav {
 #sidebar {
     min-height: 90vh;
 }
+
+.fc-title,
+.fc-time {
+    color: white;
+}

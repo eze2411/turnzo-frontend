@@ -50,8 +50,8 @@ export class CalendarComponent implements OnInit {
                     console.log(JSON.parse(error).status);
                     console.log(JSON.parse(error).message);
                     // mandar a pantalla de error
-                },
-                () => console.log(this.calendarData.events)
+                }//,
+                //() => console.log(this.calendarData.events)
             );
     }
 
@@ -80,10 +80,10 @@ export class CalendarComponent implements OnInit {
             }
         });
 
-        console.log('The dialog was opened');
+        //console.log('The dialog was opened');
 
         dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed');
+            //console.log('The dialog was closed');
         });
     }
 

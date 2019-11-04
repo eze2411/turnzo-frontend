@@ -11,15 +11,25 @@ import { EventService } from "../../../services/event.service";
 })
 export class ConfirmEventDialogComponent implements OnInit {
     message: any;
+    eventStart: string;
+    eventEnd: string;
 
     constructor(public dialogRef: MatDialogRef<ConfirmEventDialogComponent>,
                 @Inject(MAT_DIALOG_DATA) public data: DialogData, private eventService: EventService) {
     }
 
     ngOnInit() {
+        this.eventStart = moment(this.data.date.dateStr).format('YYYY-MM-DDTHH:mm:ss');
+        this.eventEnd = moment(this.data.date.dateStr).add(1, 'h').format('YYYY-MM-DDTHH:mm:ss');
     }
 
-    closeCreateEventDialog(): void {
+    doConfirmEventDialog(): void {
+        this.sendUserEvent('asdasd', this.eventStart, this.eventEnd, 'emartinez@tupaca.com');
+        this.dialogRef.close();
+        window.location.reload();
+    }
+
+    closeConfirmEventDialog(): void {
         this.dialogRef.close();
     }
 
@@ -38,7 +48,7 @@ export class ConfirmEventDialogComponent implements OnInit {
                     console.log(JSON.parse(error).message);
                     // mandar a pantalla de error
                 },
-                () => console.log('isValid: ' + this.message.status)
+                () => console.log(this.message)
             );
     }
 
