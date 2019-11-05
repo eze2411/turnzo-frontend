@@ -19,25 +19,13 @@ export interface DialogData {
 })
 export class CalendarComponent implements OnInit {
     userData: any;
-    calendarData = {
-        plugins: [dayGridPlugin, timeGrigPlugin, interactionPlugin],
-        header: {left: "", center: "title", right: "prev,next, today"},
-        editable: false,
-        eventLimit: true,
-        height: 'auto',
-        allDaySlot: false,
-        minTime: '09:00:00',
-        maxTime: '20:00:00',
-        events: [],
-        defaultView: ''
-    };
+    calendarData: any;
 
     constructor(public dialog: MatDialog, private storage: AppStorageService, private eventService: EventService) {
     }
 
     ngOnInit() {
         this.userData = this.storage.getStoredUser();
-        this.calendarData.defaultView = this.userData.role == 'ADMIN' ? 'dayGridMonth' : 'timeGridWeek';
         this.renderAllEvents();
     }
 
@@ -45,12 +33,23 @@ export class CalendarComponent implements OnInit {
         this.eventService.getAllEvents()
             .subscribe(
                 data => {
-                    this.calendarData.events = data.events[0]
+                    this.calendarData = {
+                        plugins: [dayGridPlugin, timeGrigPlugin, interactionPlugin],
+                        header: this.userData.role == 'ADMIN' ? {left: "prev,next, today", center: "title", right: "dayGridMonth,timeGridWeek,timeGridDay"} : {left: "", center: "title", right: "prev,next, today"} ,
+                        editable: this.userData.role == 'ADMIN' ? 'true' : 'false',
+                        eventLimit: true,
+                        height: 'auto',
+                        allDaySlot: false,
+                        minTime: '09:00:00',
+                        maxTime: '20:00:00',
+                        events: data.events[0],
+                        defaultView: this.userData.role == 'ADMIN' ? 'dayGridMonth' : 'timeGridWeek'
+                    };
                 },
                 error => {
                     console.log(JSON.parse(error).status);
                     console.log(JSON.parse(error).message);
-                    // mandar a pantalla de error
+                    // toHacer abrir snackbar ocurrio un error
                 }//,
                 //() => console.log(this.calendarData.events)
             );
@@ -78,6 +77,7 @@ export class CalendarComponent implements OnInit {
             width: '500px',
             data: {
                 date: event
+
             }
         });
 

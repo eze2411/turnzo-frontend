@@ -11,9 +11,14 @@
             <button mat-icon-button [matMenuTriggerFor]="menu">
                 <mat-icon class="mr-4 icon-2x">account_circle</mat-icon>
             </button>
-            <mat-menu class="p-4" #menu>
-                <p>Hello {{ userData.email }}!</p>
-                <p>You are logged as {{ userData.role }}</p>
+            <mat-menu class="user-menu" #menu>
+                <div class="text-center p-3">
+                    <p>Signed in as {{ userData.email }}</p>
+                    <p>Your role: {{ userData.role }}</p>
+                </div>
+                <mat-divider></mat-divider>
+                <button mat-menu-item (click)="logout()">Edit profile</button>
+                <button mat-menu-item (click)="logout()">Settings</button>
                 <button mat-menu-item (click)="logout()">Log out</button>
             </mat-menu>
             <div class="dropdown-menu" aria-labelledby="dropdownUserMenu">

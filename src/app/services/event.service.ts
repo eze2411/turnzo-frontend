@@ -37,4 +37,13 @@ export class EventService {
     private handleError(error: any) {
         return observableThrowError(JSON.stringify(error))
     }
+
+    postAdminLock(start: string, end: string, destiny: string): Observable<any> {
+        let body = {
+            'start': start,
+            'end': end,
+            'destiny': destiny
+        };
+        return this.http.post(apiUrl + '/lock', body, {headers}).pipe(this.extractData, catchError(this.handleError))
+    }
 }

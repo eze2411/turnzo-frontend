@@ -16,6 +16,7 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatMenuModule} from '@angular/material/menu';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -36,7 +37,6 @@ import {AppStorageService} from './services/app-storage.service';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { AuthGuardService } from './services/auth-guard.service';
 import { ConfirmEventDialogComponent } from './components/dialogs/confirm-event-dialog/confirm-event-dialog.component';
-import { A11yModule } from "@angular/cdk/a11y";
 import {JwtModule} from "@auth0/angular-jwt";
 
 export function tokenGetter() {
@@ -91,14 +91,14 @@ export function tokenGetter() {
         MatNativeDateModule,
         MatSelectModule,
         MatMenuModule,
+        MatDividerModule,
         FormsModule,
         ReactiveFormsModule,
         FullCalendarModule,
         MatCheckboxModule,
         MatSnackBarModule,
         MatProgressBarModule,
-        StorageServiceModule,
-        A11yModule
+        StorageServiceModule
     ],
     providers: [AppStorageService,
         MatDatepickerModule,
