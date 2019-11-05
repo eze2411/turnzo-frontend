@@ -4,6 +4,8 @@ import {throwError as observableThrowError, Observable} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {User} from "../models/User.model";
 import {AppStorageService} from "./app-storage.service";
+import { JwtHelperService } from '@auth0/angular-jwt';
+import {Router} from "@angular/router";
 
 const headers = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'})
 const apiUrl = "http://localhost:3000/login"
@@ -13,7 +15,8 @@ const apiUrl = "http://localhost:3000/login"
 })
 export class LoginService {
 
-    constructor(private http: HttpClient, private storage: AppStorageService) {
+    constructor(private http: HttpClient, private storage: AppStorageService, public jwtHelper: JwtHelperService,
+                private router: Router) {
     }
 
     loginUser(email: string, password: string) {
@@ -40,6 +43,12 @@ export class LoginService {
         })
     }
 
+    logoutUser() {
+        localStorage.removeItem('token');
+        this.storage.removeUserOnLocalStorage();
+        this.router.navigate(['login']);
+    }
+
     private handleError(error: any) {
         return observableThrowError(JSON.stringify(error))
     }
@@ -48,4 +57,11 @@ export class LoginService {
         localStorage.setItem('token', res.token);
         this.storage.storeUserOnLocalStorage(res.user as User);
     }
+
+    isAuthenticated(): boolean {
+        const token = localStorage.getItem('token');
+        if (!token) return false;
+        return !this.jwtHelper.isTokenExpired(token);
+    }
+
 }

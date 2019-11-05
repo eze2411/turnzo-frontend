@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
     message: any;
     hide = true;
     loginForm: FormGroup;
+    requestingActivation = false;
 
     constructor(private fb: FormBuilder, private loginService: LoginService, private _snackBar: MatSnackBar, private router: Router) {
         this.loginForm = this.fb.group({
@@ -26,6 +27,7 @@ export class LoginComponent implements OnInit {
 
     validateForm() {
         if (this.loginForm.valid) {
+            this.requestingActivation = true;
             let email = this.loginForm.get('email').value;
             let password = this.loginForm.get('password').value;
             this.postUserLoginToApi(email, password);
@@ -35,7 +37,7 @@ export class LoginComponent implements OnInit {
     }
 
     goRegister() {
-        this.router.navigate(['/register']);
+        this.router.navigate(['register']);
     }
 
     displayError(err) {
@@ -54,5 +56,6 @@ export class LoginComponent implements OnInit {
             .catch((err) => {
                 this.displayError(err);
             })
+            .finally(() => this.requestingActivation = false)
     }
 }

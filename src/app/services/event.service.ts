@@ -4,7 +4,7 @@ import {throwError as observableThrowError, Observable} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {AppStorageService} from "./app-storage.service";
 
-const headers = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8', 'auth': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo0MywiZW1haWwiOiJ1c2VyQG1haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkOHRZZmoxZmpFYmJ2dVMwQ2JNTERYT3ZQcW01ano4Qmx4MkJiaHR1NWlPTmdBY0tBZ0RYT3UiLCJmaXJzdE5hbWUiOiJ1c2VyIiwibGFzdE5hbWUiOiJtYWlsIiwiYmlydGhkYXRlIjoiMjAxOS0xMS0wM1QwMzowMDowMC4wMDBaIiwicm9sZSI6IlVTRVIifSwiaWF0IjoxNTcyODE1OTE3LCJleHAiOjE1NzI5ODg3MTd9.CFdH5SEZuGgLjup2Sj94cR7Q_uCXkILgKx9ohZh1H-k'});
+const headers = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
 const apiUrl = "http://localhost:3000/event";
 
 @Injectable({

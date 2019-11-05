@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {RouterModule} from '@angular/router';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
@@ -16,10 +16,10 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatMenuModule} from '@angular/material/menu';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-
 import {HelloWorldComponent} from './components/hello-world/hello-world.component';
 import {LoginComponent} from './components/login/login.component';
 import {RegisterComponent} from './components/register/register.component';
@@ -30,13 +30,14 @@ import {NavbarComponent} from './components/navbar/navbar.component';
 import {SidebarComponent} from './components/sidebar/sidebar.component';
 import {CalendarComponent} from './components/home/calendar/calendar.component';
 import {CreateEventDialogComponent} from './components/dialogs/create-event-dialog/create-event-dialog.component';
-
 import {FullCalendarModule} from '@fullcalendar/angular';
-
 import {StorageServiceModule} from 'ngx-webstorage-service';
 import {AppStorageService} from './services/app-storage.service';
+import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { AuthGuardService } from './services/auth-guard.service';
 import { ConfirmEventDialogComponent } from './components/dialogs/confirm-event-dialog/confirm-event-dialog.component';
 import { A11yModule } from "@angular/cdk/a11y";
+import {JwtModule} from "@auth0/angular-jwt";
 
 export function tokenGetter() {
     return localStorage.getItem("access_token");
@@ -68,8 +69,15 @@ export function tokenGetter() {
             {path: 'hello-world', component: HelloWorldComponent},
             {path: 'register', component: RegisterComponent},
             {path: 'login', component: LoginComponent},
-            {path: '', component: HomeComponent}
+            {path: '', component: HomeComponent, canActivate: [AuthGuardService]}
         ]),
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: tokenGetter,
+                whitelistedDomains: ["example.com"],
+                blacklistedRoutes: ["example.com/examplebadroute/"]
+            }
+        }),
         HttpClientModule,
         MatCardModule,
         MatInputModule,
@@ -88,11 +96,17 @@ export function tokenGetter() {
         FullCalendarModule,
         MatCheckboxModule,
         MatSnackBarModule,
+        MatProgressBarModule,
         StorageServiceModule,
         A11yModule
     ],
     providers: [AppStorageService,
-        MatDatepickerModule],
+        MatDatepickerModule,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptorService,
+            multi: true
+        }],
     bootstrap: [AppComponent]
 })
 export class AppModule {

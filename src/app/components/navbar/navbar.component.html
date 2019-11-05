@@ -14,7 +14,7 @@
             <mat-menu class="p-4" #menu>
                 <p>Hello {{ userData.email }}!</p>
                 <p>You are logged as {{ userData.role }}</p>
-                <button mat-menu-item>Log out</button>
+                <button mat-menu-item (click)="logout()">Log out</button>
             </mat-menu>
             <div class="dropdown-menu" aria-labelledby="dropdownUserMenu">
                 <a class="dropdown-item" href="#">Action</a>
