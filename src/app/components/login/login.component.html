@@ -1,3 +1,4 @@
+<mat-progress-bar mode="indeterminate" *ngIf="requestingActivation" class="position-absolute"></mat-progress-bar>
 <div class="container-fluid">
     <div class="row">
         <div class="text-center d-flex mx-auto align-items-center" style="height:100vh;">
@@ -23,12 +24,8 @@
                         <mat-error *ngIf="loginForm.get('password').invalid">Required</mat-error>
                     </mat-form-field>
                 </form>
-                <a href="" class="link-primary">
-                    <p>Forgot password?</p>
-                </a>
-                <a href="" class="link-primary">
-                    <p>Register</p>
-                </a>
+              <p class="link-primary font-14">Forgot password?</p>
+              <p class="link-primary font-14" (click)="goRegister()">Register</p>
                 <button class="mt-2 submit-btn" mat-flat-button color="primary" (click)="validateForm()">SUBMIT</button>
             </mat-card>
         </div>

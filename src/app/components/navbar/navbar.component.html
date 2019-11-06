@@ -1,10 +1,31 @@
-<header class="border-bottom">
-    <nav class="pl-5 navbar navbar-expand py-4 bg-white">
+<header class="border-bottom w-100">
+    <nav class="pl-5 navbar navbar-expand py-4 bg-white d-flex justify-content-between">
         <div id="navbar-brand">
             <a href="" class="navbar-brand d-flex align-items-center">
                 <mat-icon color="primary" class="mr-4 icon-2x">event</mat-icon>
                 <span class="turnzo-logo">TURNZO</span>
             </a>
+        </div>
+
+        <div id="navbar-user" class="dropdown d-flex align-items-center">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon class="mr-4 icon-2x">account_circle</mat-icon>
+            </button>
+            <mat-menu class="user-menu" #menu>
+                <div class="text-center p-3">
+                    <p>Signed in as {{ userData.email }}</p>
+                    <p>Your role: {{ userData.role }}</p>
+                </div>
+                <mat-divider></mat-divider>
+                <button mat-menu-item (click)="logout()">Edit profile</button>
+                <button mat-menu-item (click)="logout()">Settings</button>
+                <button mat-menu-item (click)="logout()">Log out</button>
+            </mat-menu>
+            <div class="dropdown-menu" aria-labelledby="dropdownUserMenu">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+            </div>
         </div>
     </nav>
 </header>

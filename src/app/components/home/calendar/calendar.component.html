@@ -1,0 +1,15 @@
+<full-calendar
+        *ngIf="calendarData"
+        [height]="calendarData.height"
+        [allDaySlot]="calendarData.allDaySlot"
+        [minTime]="calendarData.minTime"
+        [maxTime]="calendarData.maxTime"
+        [defaultView]="calendarData.defaultView"
+        [header]="calendarData.header"
+        [eventLimit]="calendarData.eventLimit"
+        [plugins]="calendarData.plugins"
+        [editable]="calendarData.editable"
+        (eventClick)="onEventClick($event)"
+        (dateClick)="onDateClick($event)"
+        [events]="calendarData.events">
+</full-calendar>

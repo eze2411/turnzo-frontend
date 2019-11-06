@@ -18,6 +18,7 @@ export class RegisterFormComponent implements OnInit {
 	hide = true;
 	registerForm: FormGroup;
 	isInvalidTerms: Boolean;
+    requestingActivation = false;
 
 	@Output() onSuccess: EventEmitter<Boolean> = new EventEmitter<Boolean>();
 	@Output() onError: EventEmitter<Boolean> = new EventEmitter<Boolean>();
@@ -39,6 +40,7 @@ export class RegisterFormComponent implements OnInit {
 
 	validateForm() {
 		if (this.registerForm.valid) {
+            this.requestingActivation = true;
 			let firstname = this.registerForm.get('firstname').value;
 			let lastname = this.registerForm.get('lastname').value;
 			let birthdate = this.registerForm.get('birthdate').value;
@@ -70,7 +72,10 @@ export class RegisterFormComponent implements OnInit {
 				  });
 				// mandar a pantalla de error
 			},
-			() => console.log('isValid: ' + this.message.status)
+			() => {
+                console.log('isValid: ' + this.message.status);
+                this.requestingActivation = false;
+            }
 			);
 	}
 

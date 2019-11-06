@@ -1,0 +1,10 @@
+<div class="container p-5">
+    <div mat-dialog-content class="text-center" cdkTrapFocus>
+        <p>Would you like to confirm the turn on</p>
+        <h3>{{ formatDate(data) }}</h3>
+    </div>
+    <div mat-dialog-actions class="row justify-content-center mt-3">
+        <button (click)="closeConfirmEventDialog()" mat-flat-button>Cancel</button>
+        <button (click)="doConfirmEventDialog()" color="primary" mat-flat-button>Confirm</button>
+    </div>
+</div>
