@@ -8,10 +8,6 @@ import {AppStorageService} from "../../../services/app-storage.service";
 import {ConfirmEventDialogComponent} from "../../dialogs/confirm-event-dialog/confirm-event-dialog.component";
 import {EventService} from "../../../services/event.service";
 
-export interface DialogData {
-    date: any
-}
-
 @Component({
     selector: 'app-calendar',
     templateUrl: './calendar.component.html',
@@ -21,7 +17,6 @@ export class CalendarComponent implements OnInit {
     userData: any;
     eventsData: any;
     calendarData: any;
-
     constructor(public dialog: MatDialog, private storage: AppStorageService, private eventService: EventService) {
     }
 
@@ -75,6 +70,7 @@ export class CalendarComponent implements OnInit {
         //console.log('The dialog was opened');
         dialogRef.afterClosed().subscribe(result => {
             //console.log('The dialog was closed');
+            this.renderAllEvents();
         });
     }
 
@@ -84,13 +80,13 @@ export class CalendarComponent implements OnInit {
             width: '500px',
             data: {
                 date: event
-
             }
         });
 
         //console.log('The dialog was opened');
         dialogRef.afterClosed().subscribe(result => {
             //console.log('The dialog was closed');
+            this.renderAllEvents();
         });
     }
 

@@ -1,9 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { CalendarComponent, DialogData } from "../../home/calendar/calendar.component";
 import * as moment from 'moment';
 import { EventService } from "../../../services/event.service";
 import {AppStorageService} from "../../../services/app-storage.service";
+
+export interface ConfirmEventData {
+    date: any;
+}
 
 @Component({
     selector: 'app-confirm-event-dialog',
@@ -17,7 +20,7 @@ export class ConfirmEventDialogComponent implements OnInit {
     eventEnd: string;
 
     constructor(public dialogRef: MatDialogRef<ConfirmEventDialogComponent>, private storage: AppStorageService,
-                @Inject(MAT_DIALOG_DATA) public data: DialogData, private eventService: EventService) {
+                @Inject(MAT_DIALOG_DATA) public data: ConfirmEventData, private eventService: EventService) {
     }
 
     ngOnInit() {
@@ -32,7 +35,7 @@ export class ConfirmEventDialogComponent implements OnInit {
         else
             this.createUserEvent('asdasd', this.eventStart, this.eventEnd, 'emartinez@tupaca.com');
         this.dialogRef.close();
-        window.location.reload();
+        //window.location.reload();
     }
 
     closeConfirmEventDialog(): void {

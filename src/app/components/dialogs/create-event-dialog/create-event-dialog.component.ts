@@ -1,8 +1,14 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { SidebarComponent, DialogData } from '../../sidebar/sidebar.component';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import * as moment from "moment";
+
+export interface CreateEventData {
+    events: any;
+    event: any;
+    date: any;
+    isNewEvent?: boolean;
+}
 
 @Component({
 	selector: 'app-create-event-dialog',
@@ -11,7 +17,6 @@ import * as moment from "moment";
 })
 export class CreateEventDialogComponent implements OnInit {
     isNewEvent: boolean;
-    isTurnzo: boolean;
 	eventForm: FormGroup;
 	fullCalendarEvent: any;
 	apiEvent: any;
@@ -23,7 +28,7 @@ export class CreateEventDialogComponent implements OnInit {
 
 
 	constructor(private fb: FormBuilder, public dialogRef: MatDialogRef<CreateEventDialogComponent>,
-		@Inject(MAT_DIALOG_DATA) public data: DialogData) { }
+		@Inject(MAT_DIALOG_DATA) public data: CreateEventData) { }
 
 	ngOnInit() {
 	    this.hoursList = [];
@@ -31,7 +36,9 @@ export class CreateEventDialogComponent implements OnInit {
         for (let i = 0; i < 24 ; i++)
             this.hoursList.push(i);
 
-	    this.isNewEvent = this.data == null;
+
+	    this.isNewEvent = this.data.isNewEvent;
+	    console.log(this.data);
 
 
 	    // busca turno en el listado para pintar los datos en el modal
@@ -41,6 +48,7 @@ export class CreateEventDialogComponent implements OnInit {
                 if(moment(value.start).format('YYYY-MM-DDTHH:mm:ss') == moment(this.fullCalendarEvent.event.start).format('YYYY-MM-DDTHH:mm:ss')) {
                     this.apiEvent = value;
                     this.eventHour = moment(this.apiEvent.start).hour();
+                    console.log(this.eventHour);
                     this.eventMinute = moment(this.apiEvent.start).minute();
                     this.eventType = this.apiEvent.event_type;
                 }
@@ -72,4 +80,7 @@ export class CreateEventDialogComponent implements OnInit {
 		this.dialogRef.close();
 	}
 
+    setEventType(type: string) {
+        this.eventType = type;
+    }
 }
