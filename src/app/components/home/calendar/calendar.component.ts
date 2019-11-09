@@ -43,7 +43,7 @@ export class CalendarComponent implements OnInit {
                         minTime: '09:00:00',
                         maxTime: '20:00:00',
                         events: data.events[0],
-                        defaultView: this.userData.role == 'ADMIN' ? 'dayGridMonth' : 'timeGridWeek'
+                        defaultView: 'timeGridWeek'
                     };
                 },
                 error => {

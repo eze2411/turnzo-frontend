@@ -1,7 +1,7 @@
 <mat-progress-bar mode="indeterminate" *ngIf="requestingActivation" class="position-absolute"></mat-progress-bar>
 <div class="container-fluid">
     <div class="row">
-        <div class="text-center d-flex mx-auto align-items-center" style="height:100vh;">
+        <div class="text-center d-flex flex-column mx-auto justify-content-center align-items-center" style="height:100vh;">
             <mat-card class="py-5">
                 <div class="row px-5 align-items-center justify-content-center">
                     <mat-icon color="primary" class="icon-3x">event</mat-icon>
@@ -25,9 +25,13 @@
                     </mat-form-field>
                 </form>
               <p class="link-primary font-14">Forgot password?</p>
-              <p class="link-primary font-14" (click)="goRegister()">Register</p>
+              <p class="link-primary font-14" (click)="goRegister('USER')">Register</p>
                 <button class="mt-2 submit-btn" mat-flat-button color="primary" (click)="validateForm()">SUBMIT</button>
             </mat-card>
+            <button class="mt-4 buynow-btn" mat-flat-button color="primary" (click)="goRegister('ADMIN')">
+                <mat-icon color="white">shopping_cart</mat-icon>
+                BUY NOW
+            </button>
         </div>
     </div>
 </div>
