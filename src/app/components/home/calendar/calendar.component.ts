@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import { MatDialog} from '@angular/material/dialog';
-import { CreateEventDialogComponent } from '../../dialogs/create-event-dialog/create-event-dialog.component';
+import {MatDialog} from '@angular/material/dialog';
+import {CreateEventDialogComponent} from '../../dialogs/create-event-dialog/create-event-dialog.component';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGrigPlugin from '@fullcalendar/timegrid';
-import { AppStorageService } from "../../../services/app-storage.service";
-import { ConfirmEventDialogComponent } from "../../dialogs/confirm-event-dialog/confirm-event-dialog.component";
-import { EventService } from "../../../services/event.service";
+import {AppStorageService} from "../../../services/app-storage.service";
+import {ConfirmEventDialogComponent} from "../../dialogs/confirm-event-dialog/confirm-event-dialog.component";
+import {EventService} from "../../../services/event.service";
 
 export interface DialogData {
     date: any
@@ -19,6 +19,7 @@ export interface DialogData {
 })
 export class CalendarComponent implements OnInit {
     userData: any;
+    eventsData: any;
     calendarData: any;
 
     constructor(public dialog: MatDialog, private storage: AppStorageService, private eventService: EventService) {
@@ -33,16 +34,22 @@ export class CalendarComponent implements OnInit {
         this.eventService.getAllEvents()
             .subscribe(
                 data => {
+                    this.eventsData = data.events[0];
                     this.calendarData = {
                         plugins: [dayGridPlugin, timeGrigPlugin, interactionPlugin],
-                        header: this.userData.role == 'ADMIN' ? {left: "prev,next, today", center: "title", right: "dayGridMonth,timeGridWeek,timeGridDay"} : {left: "", center: "title", right: "prev,next, today"} ,
+                        header: this.userData.role == 'ADMIN' ? {
+                            left: "prev,next, today",
+                            center: "title",
+                            right: "dayGridMonth,timeGridWeek,timeGridDay"
+                        } : {left: "", center: "title", right: "prev,next, today"},
                         editable: this.userData.role == 'ADMIN' ? 'true' : 'false',
                         eventLimit: true,
                         height: 'auto',
                         allDaySlot: false,
+                        slotDuration: '01:00:00',
                         minTime: '09:00:00',
                         maxTime: '20:00:00',
-                        events: data.events[0],
+                        events: this.eventsData,
                         defaultView: 'timeGridWeek'
                     };
                 },
@@ -60,14 +67,14 @@ export class CalendarComponent implements OnInit {
         const dialogRef = this.dialog.open(CreateEventDialogComponent, {
             width: '500px',
             data: {
-                date: event.event
+                events: this.eventsData,
+                event: event.event
             }
         });
 
-        console.log('The dialog was opened');
-
+        //console.log('The dialog was opened');
         dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed');
+            //console.log('The dialog was closed');
         });
     }
 
@@ -82,7 +89,6 @@ export class CalendarComponent implements OnInit {
         });
 
         //console.log('The dialog was opened');
-
         dialogRef.afterClosed().subscribe(result => {
             //console.log('The dialog was closed');
         });

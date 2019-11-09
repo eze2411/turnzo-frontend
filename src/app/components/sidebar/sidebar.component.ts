@@ -28,10 +28,9 @@ export class SidebarComponent implements OnInit {
             width: '500px'
         });
 
-        console.log('The dialog was opened');
-
+        //console.log('The dialog was opened');
         dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed');
+            //console.log('The dialog was closed');
         });
     }
 

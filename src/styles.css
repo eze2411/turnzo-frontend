@@ -81,3 +81,7 @@ button:focus, button:active:focus, button.active:focus {
     outline: none !important;
     outline-style: none !important;
 }
+
+.fc-slats tr {
+    height: 45px !important;
+}
