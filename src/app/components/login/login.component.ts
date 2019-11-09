@@ -36,8 +36,8 @@ export class LoginComponent implements OnInit {
         }
     }
 
-    goRegister() {
-        this.router.navigate(['register']);
+    goRegister(role) {
+        this.router.navigate(['register'], { state: { role: role } });
     }
 
     displayError(err) {
