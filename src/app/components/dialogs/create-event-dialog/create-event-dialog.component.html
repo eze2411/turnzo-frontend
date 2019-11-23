@@ -19,7 +19,7 @@
             <div class="row">
                 <mat-form-field class="w-75">
                     <mat-icon (click)="pickerStart.open()" class="icon-prefix" matPrefix>access_time</mat-icon>
-                    <input *ngIf="!isNewEvent" disabled="disabled" matInput value="{{ apiEvent.start }}" (click)="pickerStart.open()" [matDatepicker]="pickerStart">
+                    <input *ngIf="!isNewEvent" disabled="disabled" matInput value="{{ apiEvent.start }}">
                     <input *ngIf="isNewEvent" formControlName="startDate" matInput (click)="pickerStart.open()" [matDatepicker]="pickerStart" placeholder="Date and time">
                     <mat-datepicker #pickerStart></mat-datepicker>
                 </mat-form-field>
@@ -78,7 +78,7 @@
         <div mat-dialog-actions class="row justify-content-end">
             <button mat-flat-button (click)="closeCreateEventDialog()">Cancel</button>
             <button *ngIf="isNewEvent" mat-flat-button color="primary" (click)="validateForm()">Save</button>
-            <button *ngIf="!isNewEvent" mat-flat-button color="warn" (click)="cancelEvent()">Delete</button>
+            <button *ngIf="!isNewEvent" mat-flat-button color="warn" (click)="onDeleteClick()">Delete</button>
         </div>
     </form>
 </div>

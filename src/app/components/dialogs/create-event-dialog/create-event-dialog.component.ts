@@ -1,15 +1,15 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {MatDialogRef, MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import * as moment from "moment";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {EventService} from "../../../services/event.service";
 import {AppStorageService} from "../../../services/app-storage.service";
+import {ConfirmEventDialogComponent} from "../confirm-event-dialog/confirm-event-dialog.component";
 
 export interface CreateEventData {
-    events: any;
-    event: any;
-    date?: any;
+    events?: any;
+    event?: any;
     isNewEvent?: boolean;
 }
 
@@ -35,6 +35,7 @@ export class CreateEventDialogComponent implements OnInit {
 
 
 	constructor(private fb: FormBuilder,
+                public dialog: MatDialog,
                 public dialogRef: MatDialogRef<CreateEventDialogComponent>,
                 private _snackBar: MatSnackBar,
                 private eventService: EventService,
@@ -145,20 +146,19 @@ export class CreateEventDialogComponent implements OnInit {
             );
     }
 
-    cancelEvent() {
-        this.eventService.cancelEvent(this.eventId)
-            .subscribe(
-                data => {
-                    console.log(data);
-                },
-                error => {
-                    console.log(JSON.parse(error).status);
-                    console.log(JSON.parse(error).message);
-                    // mandar a pantalla de error
-                },
-                () => {
-                    this.dialogRef.close();
-                }
-            );
+    onDeleteClick() {
+        //console.log(event);
+        this.dialogRef.close();
+        const dialogRef = this.dialog.open(ConfirmEventDialogComponent, {
+            width: '500px',
+            data: {
+                action: 'delete',
+                event: this.apiEvent
+            }
+        });
+        //console.log('The dialog was opened');
+        dialogRef.afterClosed().subscribe(result => {
+            //console.log('The dialog was closed');
+        });
     }
 }

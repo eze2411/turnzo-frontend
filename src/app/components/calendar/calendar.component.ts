@@ -90,11 +90,12 @@ export class CalendarComponent implements OnInit {
     }
 
     onDateClick(event) {
-        //console.log(event);
+        console.log(event);
         const dialogRef = this.dialog.open(ConfirmEventDialogComponent, {
             width: '500px',
             data: {
-                date: event
+                action: 'confirm',
+                event: event
             }
         });
 
