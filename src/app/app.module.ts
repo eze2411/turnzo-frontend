@@ -29,7 +29,7 @@ import {RegisterSuccessComponent} from './components/register/register-success/r
 import {HomeComponent} from './components/home/home.component';
 import {NavbarComponent} from './components/navbar/navbar.component';
 import {SidebarComponent} from './components/sidebar/sidebar.component';
-import {CalendarComponent} from './components/home/calendar/calendar.component';
+import {CalendarComponent} from './components/calendar/calendar.component';
 import {CreateEventDialogComponent} from './components/dialogs/create-event-dialog/create-event-dialog.component';
 import {FullCalendarModule} from '@fullcalendar/angular';
 import {StorageServiceModule} from 'ngx-webstorage-service';

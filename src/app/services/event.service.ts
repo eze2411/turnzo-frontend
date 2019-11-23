@@ -46,4 +46,20 @@ export class EventService {
         };
         return this.http.post(apiUrl + '/lock', body, {headers}).pipe(this.extractData, catchError(this.handleError))
     }
+
+    cancelEvent(eventId: string): Observable<any> {
+        let body = {'id': eventId
+        };
+        return this.http.post(apiUrl + '/delete' , body, {headers}).pipe(this.extractData, catchError(this.handleError))
+    }
+
+    putEvent(description: string, start: string, end: string, id: string): Observable<any> {
+        let body = {
+            'description' : description,
+            'start' : start,
+            'end' : end,
+            'id' : id
+        };
+        return this.http.post(apiUrl + '/update', body, {headers}).pipe(this.extractData, catchError(this.handleError))
+    }
 }

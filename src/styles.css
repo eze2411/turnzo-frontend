@@ -59,7 +59,7 @@ button.submit-btn {
 button.create-btn {
     font-size: 16px;
     border-radius: 36px;
-    width: 140px;
+    width: 130px;
     height: 50px;
 }
 
@@ -80,4 +80,8 @@ nav {
 button:focus, button:active:focus, button.active:focus {
     outline: none !important;
     outline-style: none !important;
+}
+
+.fc-slats tr {
+    height: 45px !important;
 }

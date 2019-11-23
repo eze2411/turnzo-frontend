@@ -69,8 +69,8 @@ export class RegisterFormComponent implements OnInit {
 				this.onSuccess.emit();
 			},
 			error => {
-				console.log("status --"  + JSON.parse(error).status);
-				console.log("message --" + JSON.parse(error).message);
+				//console.log("status --"  + JSON.parse(error).status);
+				//console.log("message --" + JSON.parse(error).message);
                 this.requestingActivation = false;
 				this._snackBar.open("There was a problem with your request, try again later", "Cancel", {
 					duration: 3000,
@@ -78,7 +78,7 @@ export class RegisterFormComponent implements OnInit {
 				// mandar a pantalla de error?
 			},
 			() => {
-                console.log('isValid: ' + this.message.status);
+                //console.log('isValid: ' + this.message.status);
                 this.requestingActivation = false;
             }
 			);
