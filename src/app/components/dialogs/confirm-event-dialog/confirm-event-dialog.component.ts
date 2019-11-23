@@ -53,26 +53,30 @@ export class ConfirmEventDialogComponent implements OnInit {
                     this.message = data;
                 },
                 error => {
-                    console.log(JSON.parse(error).status);
-                    console.log(JSON.parse(error).message);
+                    //console.log(JSON.parse(error).status);
+                    //console.log(JSON.parse(error).message);
                     // mandar a pantalla de error
                 },
-                () => console.log(this.message)
+                () => {
+                    //console.log(this.message);
+                }
             );
     }
 
-    private createAdminLock(start, end, destiny) {
+    createAdminLock(start, end, destiny) {
         this.eventService.postAdminLock(start, end, destiny)
             .subscribe(
                 data => {
                     this.message = data;
                 },
                 error => {
-                    console.log(JSON.parse(error).status);
-                    console.log(JSON.parse(error).message);
+                    //console.log(JSON.parse(error).status);
+                    //console.log(JSON.parse(error).message);
                     // mandar a pantalla de error
                 },
-                () => console.log("aca: " + this.message)
+                () => {
+                    //console.log("aca: " + this.message);
+                }
             );
     }
 }

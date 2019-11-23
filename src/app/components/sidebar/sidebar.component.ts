@@ -25,7 +25,6 @@ export class SidebarComponent implements OnInit {
                 isNewEvent: true
             }
         });
-
         //console.log('The dialog was opened');
         dialogRef.afterClosed().subscribe(result => {
             //console.log('The dialog was closed');

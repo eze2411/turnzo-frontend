@@ -13,5 +13,9 @@
         [editable]="calendarData.editable"
         (eventClick)="onEventClick($event)"
         (dateClick)="onDateClick($event)"
+        (eventDragStart)="eventDragStart($event)"
+        (eventDrop)="eventDragStop($event)"
+        (eventResizeStart)="eventResizeStart($event)"
+        (eventResize)="eventResizeStop($event)"
         [events]="calendarData.events">
 </full-calendar>

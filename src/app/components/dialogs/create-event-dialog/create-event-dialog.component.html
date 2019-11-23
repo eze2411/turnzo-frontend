@@ -7,7 +7,11 @@
         </div>
         <div mat-dialog-content>
             <div class="row mb-3">
-                <mat-button-toggle-group [disabled]="!isNewEvent" [value]="eventType">
+                <mat-button-toggle-group *ngIf="!isNewEvent" disabled="disabled" [value]="eventType">
+                    <mat-button-toggle class="d-flex align-items-center" value="TURNZO">Turnzo</mat-button-toggle>
+                    <mat-button-toggle class="d-flex align-items-center" value="LOCK">Lock</mat-button-toggle>
+                </mat-button-toggle-group>
+                <mat-button-toggle-group *ngIf="isNewEvent" formControlName="type">
                     <mat-button-toggle class="d-flex align-items-center" (click)="setEventType('TURNZO')" value="TURNZO">Turnzo</mat-button-toggle>
                     <mat-button-toggle class="d-flex align-items-center" (click)="setEventType('LOCK')" value="LOCK">Lock</mat-button-toggle>
                 </mat-button-toggle-group>
@@ -16,28 +20,29 @@
                 <mat-form-field class="w-75">
                     <mat-icon (click)="pickerStart.open()" class="icon-prefix" matPrefix>access_time</mat-icon>
                     <input *ngIf="!isNewEvent" disabled="disabled" matInput value="{{ apiEvent.start }}" (click)="pickerStart.open()" [matDatepicker]="pickerStart">
-                    <input *ngIf="isNewEvent" matInput (click)="pickerStart.open()" [matDatepicker]="pickerStart" placeholder="Date and time">
+                    <input *ngIf="isNewEvent" formControlName="startDate" matInput (click)="pickerStart.open()" [matDatepicker]="pickerStart" placeholder="Date and time">
                     <mat-datepicker #pickerStart></mat-datepicker>
                 </mat-form-field>
                 <mat-form-field class="w-25">
                     <mat-label>Start</mat-label>
-                    <mat-select *ngIf="!isNewEvent" disabled="disabled" value="{{ eventHour }}">
+
+
+                    <mat-select *ngIf="!isNewEvent" disabled="disabled" value="{{ eventHour }}"></mat-select>
+
+                    <mat-select *ngIf="isNewEvent" formControlName="startTime">
                         <mat-option *ngFor="let hour of hoursList; let i = index" value="{{hour}}">
                             {{hour}}
                         </mat-option>
                     </mat-select>
-                    <mat-select *ngIf="isNewEvent">
-                        <mat-option *ngFor="let hour of hoursList; let i = index" value="{{hour}}">
-                            {{hour}}
-                        </mat-option>
-                    </mat-select>
+
+
                 </mat-form-field>
             </div>
             <div class="row">
                 <mat-form-field class="w-75">
                     <mat-icon (click)="pickerEnd.open()" class="icon-prefix" matPrefix>access_time</mat-icon>
                     <input *ngIf="!isNewEvent" disabled="disabled" matInput value="{{ apiEvent.start }}" (click)="pickerEnd.open()" [matDatepicker]="pickerEnd">
-                    <input *ngIf="isNewEvent" matInput (click)="pickerEnd.open()" [matDatepicker]="pickerEnd" placeholder="Date and time">
+                    <input *ngIf="isNewEvent" formControlName="endDate" matInput (click)="pickerEnd.open()" [matDatepicker]="pickerEnd" placeholder="Date and time">
                     <mat-datepicker #pickerEnd></mat-datepicker>
                 </mat-form-field>
                 <mat-form-field class="w-25">
@@ -47,7 +52,7 @@
                             {{hour}}
                         </mat-option>
                     </mat-select>
-                    <mat-select *ngIf="isNewEvent">
+                    <mat-select *ngIf="isNewEvent" formControlName="endTime">
                         <mat-option *ngFor="let hour of hoursList; let i = index" value="{{hour}}">
                             {{hour}}
                         </mat-option>
@@ -65,13 +70,15 @@
             <div class="row">
                 <mat-form-field class="w-100">
                     <mat-icon class="icon-prefix" matPrefix>description</mat-icon>
-                    <textarea matInput placeholder="Add a description"></textarea>
+                    <textarea *ngIf="!isNewEvent" disabled="disabled" matInput [value]="eventDescription"></textarea>
+                    <textarea *ngIf="isNewEvent" formControlName="description" matInput placeholder="Add a description"></textarea>
                 </mat-form-field>
             </div>
         </div>
         <div mat-dialog-actions class="row justify-content-end">
             <button mat-flat-button (click)="closeCreateEventDialog()">Cancel</button>
-            <button mat-flat-button color="primary" (click)="closeCreateEventDialog()">Save</button>
+            <button *ngIf="isNewEvent" mat-flat-button color="primary" (click)="validateForm()">Save</button>
+            <button *ngIf="!isNewEvent" mat-flat-button color="warn" (click)="cancelEvent()">Delete</button>
         </div>
     </form>
 </div>
