@@ -1,6 +1,6 @@
 <div class="container col-11 p-5">
     <form [formGroup]="eventForm">
-        <div *ngIf="!isNewEvent && eventType == 'TURNZO'" class="row">
+        <div *ngIf="!isNewEvent && eventType === 'TURNZO'" class="row">
             <mat-form-field class="w-100">
                 <input disabled="disabled" type="text" matInput placeholder="{{ apiEvent.user_firstname }} {{ apiEvent.user_lastname }}">
             </mat-form-field>

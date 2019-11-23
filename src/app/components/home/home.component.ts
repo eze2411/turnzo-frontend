@@ -9,11 +9,13 @@ import {AppStorageService} from "../../services/app-storage.service";
 export class HomeComponent implements OnInit {
     currentData: string;
     userData: any;
+    showView: string;
 
   constructor(private storage: AppStorageService) { }
 
   ngOnInit() {
       this.userData = this.storage.getStoredUser();
+      this.showView = 'calendar';
   }
 
 }

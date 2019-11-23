@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {AppStorageService} from "../../services/app-storage.service";
 import {LoginService} from "../../services/login.service";
 
@@ -10,6 +10,7 @@ import {LoginService} from "../../services/login.service";
 export class NavbarComponent implements OnInit {
 
     userData: any;
+    @Output()goTo  = new EventEmitter();
 
     constructor(private storage: AppStorageService, private login: LoginService) {
     }

@@ -38,6 +38,8 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { AuthGuardService } from './services/auth-guard.service';
 import { ConfirmEventDialogComponent } from './components/dialogs/confirm-event-dialog/confirm-event-dialog.component';
 import {JwtModule} from "@auth0/angular-jwt";
+import { ProfileComponent } from './components/profile/profile.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 export function tokenGetter() {
     return localStorage.getItem("access_token");
@@ -56,7 +58,9 @@ export function tokenGetter() {
         SidebarComponent,
         CalendarComponent,
         CreateEventDialogComponent,
-        ConfirmEventDialogComponent
+        ConfirmEventDialogComponent,
+        ProfileComponent,
+        SettingsComponent
     ],
     entryComponents: [
         CreateEventDialogComponent,

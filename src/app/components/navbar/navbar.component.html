@@ -19,8 +19,8 @@
                     <p>Your role: {{ userData.role }}</p>
                 </div>
                 <mat-divider></mat-divider>
-                <button mat-menu-item (click)="logout()">Edit profile</button>
-                <button mat-menu-item (click)="logout()">Settings</button>
+                <button mat-menu-item (click)="goTo.emit('profile')">Edit profile</button>
+                <button mat-menu-item (click)="goTo.emit('settings')">Settings</button>
                 <button mat-menu-item (click)="logout()">Log out</button>
             </mat-menu>
             <div class="dropdown-menu" aria-labelledby="dropdownUserMenu">

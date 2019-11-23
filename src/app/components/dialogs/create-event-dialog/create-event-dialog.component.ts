@@ -70,7 +70,7 @@ export class CreateEventDialogComponent implements OnInit {
             });
         }
 
-	    if(this.eventType == 'TURNZO') {
+	    if(this.eventType === 'TURNZO') {
             this.eventForm = this.fb.group({
                 type: new FormControl('', [Validators.required]),
                 startDate: new FormControl('', [Validators.required]),
@@ -121,7 +121,7 @@ export class CreateEventDialogComponent implements OnInit {
                 return false;
             }
 
-            if (type == 'TURNZO') {
+            if (type === 'TURNZO') {
                 //aca registro el evento
             } else {
                 this.createAdminLock(start, end, this.userData.email);
