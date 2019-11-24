@@ -13,7 +13,7 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  registerUser(firstname: string, lastname: string, birthdate: string, role: string, email: string, password: string ): Observable<any> {
+    registerUser(firstname: string, lastname: string, birthdate: string, role: string, email: string, password: string ): Observable<any> {
     let body = {
       'firstName': firstname,
       'lastName': lastname,
@@ -23,14 +23,27 @@ export class UserService {
       'password': password
     };
     return this.http.post(apiUrl, body, {headers}).pipe(this.extractData, catchError(this.handleError))
-  }
+    }
 
-  private extractData(res: any) {
+    updateUserInfo(firstname: string, lastname: string, birthdate: string): Observable<any> {
+        let body = {
+            'firstname': firstname,
+            'lastname': lastname,
+            'birthdate': birthdate
+        };
+        return this.http.post(apiUrl + '/update', body, {headers}).pipe(this.extractData, catchError(this.handleError))
+    }
+
+    getLoggedUserInfo(): Observable<any> {
+        return this.http.get(apiUrl, {headers}).pipe(this.extractData, catchError(this.handleError));
+    }
+
+    private extractData(res: any) {
     let body = res;
     return body || {};
-  }
+    }
 
-  private handleError(error: any) {
+    private handleError(error: any) {
       return observableThrowError(JSON.stringify(error))
-  }
+    }
 }

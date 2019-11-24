@@ -18,6 +18,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatMenuModule} from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -40,6 +41,7 @@ import { ConfirmEventDialogComponent } from './components/dialogs/confirm-event-
 import {JwtModule} from "@auth0/angular-jwt";
 import { ProfileComponent } from './components/profile/profile.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { ConfirmDialogComponent } from './components/dialogs/confirm-dialog/confirm-dialog.component';
 
 export function tokenGetter() {
     return localStorage.getItem("access_token");
@@ -60,11 +62,13 @@ export function tokenGetter() {
         CreateEventDialogComponent,
         ConfirmEventDialogComponent,
         ProfileComponent,
-        SettingsComponent
+        SettingsComponent,
+        ConfirmDialogComponent
     ],
     entryComponents: [
         CreateEventDialogComponent,
-        ConfirmEventDialogComponent
+        ConfirmEventDialogComponent,
+        ConfirmDialogComponent
     ],
     imports: [
         BrowserModule,
@@ -102,6 +106,7 @@ export function tokenGetter() {
         MatCheckboxModule,
         MatSnackBarModule,
         MatProgressBarModule,
+        MatProgressSpinnerModule,
         StorageServiceModule
     ],
     providers: [AppStorageService,

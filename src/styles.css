@@ -85,3 +85,15 @@ button:focus, button:active:focus, button.active:focus {
 .fc-slats tr {
     height: 45px !important;
 }
+
+h1 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    font-size: 50px;
+}
+
+.sub-bar {
+    width: 230px;
+    height: 7px;
+    background-color: #673ab7;
+}

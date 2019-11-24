@@ -28,8 +28,6 @@ export class ConfirmEventDialogComponent implements OnInit {
     ngOnInit() {
         this.action = this.data.action;
 
-        console.log(this.data);
-
         if (this.action == 'confirm') {
             this.eventStart = moment(this.data.event.dateStr).format('YYYY-MM-DDTHH:mm:ss');
             this.eventEnd = moment(this.data.event.dateStr).add(1, 'h').format('YYYY-MM-DDTHH:mm:ss');
