@@ -1,7 +1,8 @@
-import {Component, OnInit, Inject} from '@angular/core';
+import {Component, OnInit, Inject, Output, EventEmitter} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {CreateEventDialogComponent} from '../dialogs/create-event-dialog/create-event-dialog.component';
 import {AppStorageService} from "../../services/app-storage.service";
+import {FormControl} from "@angular/forms";
 
 @Component({
     selector: 'app-sidebar',
@@ -10,6 +11,10 @@ import {AppStorageService} from "../../services/app-storage.service";
 })
 export class SidebarComponent implements OnInit {
     userData: any;
+    searchInput = new FormControl('');
+
+    @Output()goTo  = new EventEmitter();
+    @Output()searchValue  = new EventEmitter();
 
     constructor(public dialog: MatDialog, private storage: AppStorageService) {
     }
@@ -31,4 +36,10 @@ export class SidebarComponent implements OnInit {
         });
     }
 
+    onDoSearch(str) {
+        this.goTo.emit('search');
+        let strLower = str.toLowerCase();
+        this.searchValue.emit(strLower);
+        this.searchInput.reset();
+    }
 }
