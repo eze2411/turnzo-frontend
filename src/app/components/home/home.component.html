@@ -2,7 +2,7 @@
 <div class="container-fluid bg-white">
     <div class="row">
         <div class="col-md-2">
-            <app-sidebar></app-sidebar>
+            <app-sidebar (goTo)="showView = $event" (searchValue)="searchFromSidebar = $event"></app-sidebar>
         </div>
         <div class="col-md-10">
             <div class="row">
@@ -10,6 +10,7 @@
                     <app-calendar *ngIf="showView === 'calendar'"></app-calendar>
                     <app-profile *ngIf="showView === 'profile'"></app-profile>
                     <app-settings *ngIf="showView === 'settings'"></app-settings>
+                    <app-search *ngIf="showView === 'search'" [searchString]="searchFromSidebar"></app-search>
                 </div>
             </div>
 

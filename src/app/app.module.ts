@@ -42,6 +42,7 @@ import {JwtModule} from "@auth0/angular-jwt";
 import { ProfileComponent } from './components/profile/profile.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { ConfirmDialogComponent } from './components/dialogs/confirm-dialog/confirm-dialog.component';
+import { SearchComponent } from './components/search/search.component';
 
 export function tokenGetter() {
     return localStorage.getItem("access_token");
@@ -63,7 +64,8 @@ export function tokenGetter() {
         ConfirmEventDialogComponent,
         ProfileComponent,
         SettingsComponent,
-        ConfirmDialogComponent
+        ConfirmDialogComponent,
+        SearchComponent
     ],
     entryComponents: [
         CreateEventDialogComponent,
