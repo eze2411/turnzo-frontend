@@ -26,20 +26,19 @@ export class RegisterFormComponent implements OnInit {
 	@Output() onError: EventEmitter<Boolean> = new EventEmitter<Boolean>();
 
 	constructor(private fb: FormBuilder,
-                private userService:UserService,
+                private userService: UserService,
                 private _snackBar: MatSnackBar,
-                public router: Router) {
-		this.registerForm = this.fb.group({
-			firstname: new FormControl('', [Validators.required]),
-			lastname: new FormControl('', [Validators.required]),
-			birthdate: new FormControl('', [Validators.required]),
-			email: new FormControl('', [Validators.required, Validators.email]),
-			password: new FormControl('', [Validators.required]),
-			terms: new FormControl('', [Validators.required])
-		})
-	}
+                public router: Router) { }
 
 	ngOnInit() {
+        this.registerForm = this.fb.group({
+            firstname: new FormControl('', [Validators.required]),
+            lastname: new FormControl('', [Validators.required]),
+            birthdate: new FormControl('', [Validators.required]),
+            email: new FormControl('', [Validators.required, Validators.email]),
+            password: new FormControl('', [Validators.required]),
+            terms: new FormControl('', [Validators.required])
+        })
 		this.isInvalidTerms = null;
 	}
 

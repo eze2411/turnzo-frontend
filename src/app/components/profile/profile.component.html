@@ -1,1 +1,69 @@
-<p>profile works!</p>
+<div class="container-fluid mt-3">
+    <div class="row flex-column text-center">
+        <h1>EDIT PROFILE</h1>
+        <div class="sub-bar mx-auto"></div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-12 col-lg-6 text-center">
+            <div class="row align-items-center justify-content-center mb-3">
+                <mat-icon class="icon-prefix mr-2" matPrefix>info</mat-icon>
+                <strong>PERSONAL INFO</strong>
+            </div>
+            <form class="w-75 m-auto" [formGroup]="updateForm">
+                <mat-form-field class="w-100 w-lg-75">
+                    <input disabled="disabled" type="text" matInput placeholder="Email" value="{{ userData.email }}">
+                </mat-form-field>
+
+                <mat-form-field class="mt-1 w-100 w-lg-75">
+                    <input type="text" matInput placeholder="Firstname" formControlName="firstname">
+                    <mat-error *ngIf="updateForm.get('firstname').invalid">Required</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="mt-1 w-100 w-lg-75">
+                    <input type="text" matInput placeholder="Lastname" formControlName="lastname">
+                    <mat-error *ngIf="updateForm.get('lastname').invalid">Required</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="mt-1 w-100 w-lg-75">
+                    <input matInput [matDatepicker]="picker" (click)="picker.open()" placeholder="Birthdate" formControlName="birthdate">
+                    <mat-datepicker-toggle matDatepicker="picker" matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="updateForm.get('birthdate').invalid">Required</mat-error>
+                </mat-form-field>
+            </form>
+            <button *ngIf="!requestingUpdate" class="submit-btn mt-2" mat-flat-button color="primary" (click)="validateUpdateForm()">SUBMIT</button>
+            <mat-progress-spinner class="mx-auto mt-2" *ngIf="requestingUpdate" mode="indeterminate" [diameter]="30"></mat-progress-spinner>
+        </div>
+        <div class="col-12 col-lg-6 text-center">
+            <div class="row align-items-center justify-content-center mb-3">
+                <mat-icon class="icon-prefix mr-2" matPrefix>security</mat-icon>
+                <strong>PASSWORD RESET</strong>
+            </div>
+            <form class="w-75 m-auto" [formGroup]="passwordForm">
+                <mat-form-field class="mt-1 w-100 w-lg-75">
+                    <input matInput type="text" placeholder="Current password" [type]="hidePassActual ? 'password' : 'text'" formControlName="passActual">
+                    <button mat-icon-button matSuffix (click)="hidePassActual = !hidePassActual" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassActual">
+                        <mat-icon>{{hidePassActual ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="passwordForm.get('passActual').invalid">You must provide an alphanumeric 8-characters-digit at least</mat-error>
+                </mat-form-field>
+                <mat-form-field class="mt-1 w-100 w-lg-75">
+                    <input matInput type="text" placeholder="New password" [type]="hidePassNew1 ? 'password' : 'text'" formControlName="passNew1" (change)="setPassNew2Validation()">
+                    <button mat-icon-button matSuffix (click)="hidePassNew1 = !hidePassNew1" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassNew1">
+                        <mat-icon>{{hidePassNew1 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="passwordForm.get('passNew1').invalid">You must provide an alphanumeric 8-characters-digit at least</mat-error>
+                </mat-form-field>
+                <mat-form-field class="mt-1 w-100 w-lg-75">
+                    <input matInput type="text" placeholder="Confirm new password" [type]="hidePassNew2 ? 'password' : 'text'" formControlName="passNew2">
+                    <button mat-icon-button matSuffix (click)="hidePassNew2 = !hidePassNew2" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassNew2">
+                        <mat-icon>{{hidePassNew2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="passwordForm.get('passNew2').invalid">Passwords don't match / are invalid</mat-error>
+                </mat-form-field>
+            </form>
+            <button *ngIf="!requestingPasswordReset" class="submit-btn mt-2" mat-flat-button color="primary" (click)="validatePasswordForm()">SUBMIT</button>
+            <mat-progress-spinner class="mx-auto mt-2" *ngIf="requestingPasswordReset" mode="indeterminate" [diameter]="30"></mat-progress-spinner>
+        </div>
+    </div>
+</div>

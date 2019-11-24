@@ -49,10 +49,7 @@ export class CreateEventDialogComponent implements OnInit {
         for (let i = 0; i < 24 ; i++)
             this.hoursList.push(i);
 
-
 	    this.isNewEvent = this.data.isNewEvent;
-	    //console.log(this.data);
-
 
 	    // busca turno en el listado para pintar los datos en el modal
 	    if (!this.isNewEvent) {
@@ -62,7 +59,6 @@ export class CreateEventDialogComponent implements OnInit {
                     this.apiEvent = value;
                     this.eventHour = moment(this.apiEvent.start).hour();
                     this.eventId = this.apiEvent.event_id;
-                    console.log(this.eventId);
                     this.eventMinute = moment(this.apiEvent.start).minute();
                     this.eventDescription = this.apiEvent.event_description;
                     this.eventType = this.apiEvent.event_type;
@@ -102,7 +98,6 @@ export class CreateEventDialogComponent implements OnInit {
 
     validateForm() {
         if(this.eventForm.valid) {
-            //console.log("entro aca");
             let type = this.eventForm.get('type').value;
             let startDate = this.eventForm.get('startDate').value;
             let endDate = this.eventForm.get('endDate').value;
@@ -147,7 +142,6 @@ export class CreateEventDialogComponent implements OnInit {
     }
 
     onDeleteClick() {
-        //console.log(event);
         this.dialogRef.close();
         const dialogRef = this.dialog.open(ConfirmEventDialogComponent, {
             width: '500px',

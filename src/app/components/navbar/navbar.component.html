@@ -1,10 +1,10 @@
 <header class="border-bottom w-100">
     <nav class="pl-5 navbar navbar-expand py-4 bg-white d-flex justify-content-between">
         <div id="navbar-brand">
-            <a href="" class="navbar-brand d-flex align-items-center">
+            <div class="navbar-brand d-flex align-items-center" (click)="goTo.emit('calendar')">
                 <mat-icon color="primary" class="mr-4 icon-2x">event</mat-icon>
                 <span class="turnzo-logo">TURNZO</span>
-            </a>
+            </div>
         </div>
 
         <div id="navbar-user" class="dropdown d-flex align-items-center">
@@ -16,7 +16,7 @@
                     <p>{{ userData.email }}</p>
                 </div>
                 <div class="p-3">
-                    <p>Your role: {{ userData.role }}</p>
+                    <p>{{ userData.role }}</p>
                 </div>
                 <mat-divider></mat-divider>
                 <button mat-menu-item (click)="goTo.emit('profile')">Edit profile</button>

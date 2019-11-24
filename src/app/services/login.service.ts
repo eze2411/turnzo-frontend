@@ -20,12 +20,13 @@ export class LoginService {
     }
 
     loginUser(email: string, password: string) {
+        let body = {
+            'email': email,
+            'password': password
+        };
         return new Promise((resolve, reject) => {
-            const res = this.http.post<any>(apiUrl, {
-                'email': email,
-                'password': password
-            }, {headers: headers})
-                .pipe(catchError(this.handleError))
+            const res = this.http.post<any>(apiUrl, body, {headers: headers})
+                .pipe(catchError(this.handleError));
 
             if (res) {
                 res.subscribe(
