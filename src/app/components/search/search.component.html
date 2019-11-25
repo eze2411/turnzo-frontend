@@ -1,20 +1,19 @@
-<div class="container-fluid mt-3">
+<div class="container-fluid mt-3 pb-5">
     <div class="row flex-column text-center">
         <h1>SEARCH RESULTS</h1>
         <div class="sub-bar mx-auto"></div>
     </div>
-    <mat-card class="example-card mt-5">
+    <mat-card *ngFor="let event of filteredEventsData; let i = index" class="example-card mt-5">
         <mat-card-header class="mb-3">
             <div class="p-4 mr-3" mat-card-avatar>
-                <mat-icon class="icon-3x">perm_contact_calendar</mat-icon>
+                <mat-icon class="icon-3x">{{ event.event_type == 'TURNZO' ? 'perm_contact_calendar' : 'lock'}}</mat-icon>
             </div>
-            <mat-card-title>Ezequiel Martinez</mat-card-title>
-            <mat-card-subtitle>eze2411@gmail.com</mat-card-subtitle>
+            <mat-card-title>{{ event.title }}</mat-card-title>
+            <mat-card-subtitle>Event Type: <strong>{{ event.event_type }}</strong></mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-            <p><strong>Start:</strong> 2019-11-21 09:00 - <strong>End:</strong> 2019-11-21 09:00</p>
-            <p>The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-                A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally bred for hunting.</p>
+            <p><strong>Start: </strong>{{ event.start }} - <strong>End: </strong>{{ event.end }}</p>
+            <p>{{ event.event_description }}</p>
         </mat-card-content>
         <mat-card-actions class="d-flex justify-content-end p-2">
             <button mat-flat-button color="warn">Delete</button>

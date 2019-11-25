@@ -69,10 +69,10 @@ button.create-btn {
 }
 
 nav {
-    height: 70px;
+    height: 10vh;
 }
 
-#sidebar {
+#main {
     min-height: 90vh;
 }
 
