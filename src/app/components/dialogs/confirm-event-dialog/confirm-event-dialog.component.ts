@@ -20,6 +20,7 @@ export class ConfirmEventDialogComponent implements OnInit {
     eventStart: string;
     eventEnd: string;
     action: string;
+    requestingDeleteEvent = false;
 
     constructor(public dialogRef: MatDialogRef<ConfirmEventDialogComponent>, private storage: AppStorageService,
                 @Inject(MAT_DIALOG_DATA) public data: ConfirmEventData, private eventService: EventService) {
@@ -40,7 +41,7 @@ export class ConfirmEventDialogComponent implements OnInit {
             if(this.userData.role == 'ADMIN')
                 this.createAdminLock(this.eventStart, this.eventEnd, this.userData.email);
             else
-                this.createUserEvent('asdasd', this.eventStart, this.eventEnd, 'emartinez@tupaca.com');
+                this.createUserEvent('Temporal description', this.eventStart, this.eventEnd, this.data.event.admin);
             this.dialogRef.close();
             //window.location.reload();
         } else {
@@ -49,6 +50,7 @@ export class ConfirmEventDialogComponent implements OnInit {
     }
 
     deleteEvent(): void {
+        this.requestingDeleteEvent = true;
         this.eventService.cancelEvent(this.data.event.event_id)
             .subscribe(
                 data => {
