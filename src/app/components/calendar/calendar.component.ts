@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import {MatDialog} from '@angular/material/dialog';
 import {CreateEventDialogComponent} from '../dialogs/create-event-dialog/create-event-dialog.component';
@@ -18,43 +18,48 @@ export class CalendarComponent implements OnInit {
     userData: any;
     eventsData: any;
     calendarData: any;
-    fullCalendarEvent: any;
-    apiEvent: any;
     eventId: string;
-    constructor(public dialog: MatDialog, private storage: AppStorageService, private eventService: EventService) {
+
+    @Input() adminCalendarShowView: string;
+
+    constructor(public dialog: MatDialog,
+                private storage: AppStorageService,
+                private eventService: EventService) {
     }
 
     ngOnInit() {
         this.userData = this.storage.getStoredUser();
-        this.renderAllEvents();
+        this.initCalendarData();
+        this.renderEvents();
         setInterval(()=> {
             //this.renderAllEvents();
         }, 2000)
 
     }
 
-    renderAllEvents() {
-        this.eventService.getAllEvents()
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes.adminCalendarShowView.currentValue) {
+            this.renderEvents();
+        }
+    }
+
+    renderEvents() {
+        if(this.userData) {
+            if (this.userData.role == 'ADMIN') {
+                this.renderAdminEvents();
+            } else {
+                this.renderUserEvents();
+            }
+        }
+    }
+
+    renderAdminEvents() {
+        this.eventService.getAdminEvents()
             .subscribe(
                 data => {
                     this.eventsData = data.events[0];
-                    this.calendarData = {
-                        plugins: [dayGridPlugin, timeGrigPlugin, interactionPlugin],
-                        header: this.userData.role == 'ADMIN' ? {
-                            left: "prev,next, today",
-                            center: "title",
-                            right: "dayGridMonth,timeGridWeek,timeGridDay"
-                        } : {left: "", center: "title", right: "prev,next, today"},
-                        editable: this.userData.role == 'ADMIN' ? true : false,
-                        eventLimit: true,
-                        height: 'auto',
-                        allDaySlot: false,
-                        slotDuration: '01:00:00',
-                        minTime: '09:00:00',
-                        maxTime: '20:00:00',
-                        events: this.eventsData,
-                        defaultView: 'timeGridWeek'
-                    };
+                    //console.log(this.eventsData);
+                    this.calendarData.events = this.eventsData;
                 },
                 error => {
                     //console.log(JSON.parse(error).status);
@@ -65,8 +70,45 @@ export class CalendarComponent implements OnInit {
             );
     }
 
-    onEventClick(event) {
+    renderUserEvents() {
+        this.eventService.getUserEventsByAdmin(this.adminCalendarShowView, this.userData.email)
+            .subscribe(
+                data => {
+                    this.eventsData = data.events[0];
+                    //console.log(this.eventsData);
+                    this.calendarData.events = this.eventsData;
+                },
+                error => {
+                    //console.log(JSON.parse(error).status);
+                    //console.log(JSON.parse(error).message);
+                    // toHacer abrir snackbar ocurrio un error
+                }//,
+                //() => console.log(this.calendarData.events)
+            );
+    }
 
+    initCalendarData() {
+        let calendarData = {
+            plugins: [dayGridPlugin, timeGrigPlugin, interactionPlugin],
+            header: this.userData.role == 'ADMIN' ? {
+                left: "prev,next, today",
+                center: "title",
+                right: "dayGridMonth,timeGridWeek,timeGridDay"
+            } : {left: "", center: "title", right: "prev,next, today"},
+            editable: this.userData.role == 'ADMIN' ? true : false,
+            eventLimit: true,
+            height: 'auto',
+            allDaySlot: false,
+            slotDuration: '01:00:00',
+            minTime: '09:00:00',
+            maxTime: '20:00:00',
+            events: {},
+            defaultView: 'timeGridWeek'
+        };
+        this.calendarData = calendarData;
+    }
+
+    onEventClick(event) {
         if (this.userData.role == 'ADMIN') {
 
         } else {
@@ -85,7 +127,7 @@ export class CalendarComponent implements OnInit {
         //console.log('The dialog was opened');
         dialogRef.afterClosed().subscribe(result => {
             //console.log('The dialog was closed');
-            this.renderAllEvents();
+            this.renderEvents();
         });
     }
 
@@ -102,7 +144,7 @@ export class CalendarComponent implements OnInit {
         //console.log('The dialog was opened');
         dialogRef.afterClosed().subscribe(result => {
             //console.log('The dialog was closed');
-            this.renderAllEvents();
+            this.renderEvents();
         });
     }
 
