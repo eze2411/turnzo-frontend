@@ -12,8 +12,9 @@
                 <mat-icon class="mr-4 icon-2x">account_circle</mat-icon>
             </button>
             <mat-menu class="user-menu" #menu>
-                <div class="p-3 text-center">
-                    {{ userData.email }} - <strong>{{ userData.role }}</strong>
+                <div class="p-3 text-center d-flex flex-column">
+                    {{ userData.email }}
+                    <strong>{{ userData.role }}</strong>
                 </div>
                 <mat-divider></mat-divider>
                 <button mat-menu-item (click)="goTo.emit('profile')">Edit profile</button>
