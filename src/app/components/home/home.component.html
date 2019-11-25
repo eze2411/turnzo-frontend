@@ -1,5 +1,5 @@
 <app-navbar (goTo)="showView = $event"></app-navbar>
-<div class="container-fluid bg-white">
+<div id="main" class="container-fluid bg-white">
     <div class="row">
         <div class="col-md-2">
             <app-sidebar (goTo)="showView = $event" (adminCalendar)="adminCalendarFromSidebar = $event" (searchValue)="searchFromSidebar = $event"></app-sidebar>
@@ -10,7 +10,7 @@
                     <app-calendar *ngIf="showView === 'calendar'" [adminCalendarShowView]="adminCalendarFromSidebar"></app-calendar>
                     <app-profile *ngIf="showView === 'profile'"></app-profile>
                     <app-settings *ngIf="showView === 'settings'"></app-settings>
-                    <app-search *ngIf="showView === 'search'" [searchString]="searchFromSidebar"></app-search>
+                    <app-search *ngIf="showView === 'search'" [searchString]="searchFromSidebar" [adminCalendarShowView]="adminCalendarFromSidebar"></app-search>
                 </div>
             </div>
 
