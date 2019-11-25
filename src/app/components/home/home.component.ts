@@ -11,12 +11,13 @@ export class HomeComponent implements OnInit {
     userData: any;
     showView: string;
     searchFromSidebar: string;
+    adminCalendarFromSidebar: string;
 
   constructor(private storage: AppStorageService) { }
 
   ngOnInit() {
       this.userData = this.storage.getStoredUser();
-      this.showView = 'search';
+      this.showView = 'calendar';
   }
 
 }

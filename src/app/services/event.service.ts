@@ -15,8 +15,12 @@ export class EventService {
     constructor(private http: HttpClient, private storage: AppStorageService) {
     }
 
-    getAllEvents(): Observable<any> {
-        return this.http.get(apiUrl + '/all', {headers}).pipe(this.extractData, catchError(this.handleError))
+    getAdminEvents(): Observable<any> {
+        return this.http.get(apiUrl + '/admin', {headers}).pipe(this.extractData, catchError(this.handleError))
+    }
+
+    getUserEventsByAdmin(admin: string, user: string): Observable<any> {
+        return this.http.get(apiUrl + '/user/' + admin, {headers}).pipe(this.extractData, catchError(this.handleError))
     }
 
     postUserEvent(description: string, start: string, end: string, destiny: string): Observable<any> {
