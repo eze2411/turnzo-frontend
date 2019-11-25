@@ -42,8 +42,9 @@ export class EventService {
         return observableThrowError(JSON.stringify(error))
     }
 
-    postAdminLock(start: string, end: string, destiny: string): Observable<any> {
+    postAdminLock(description: string, start: string, end: string, destiny: string): Observable<any> {
         let body = {
+            'description': description,
             'start': start,
             'end': end,
             'destiny': destiny

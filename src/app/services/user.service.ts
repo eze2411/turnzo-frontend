@@ -38,6 +38,10 @@ export class UserService {
         return this.http.get(apiUrl, {headers}).pipe(this.extractData, catchError(this.handleError));
     }
 
+    getAllUsersInfo(): Observable<any> {
+        return this.http.get(apiUrl + '/all', {headers}).pipe(this.extractData, catchError(this.handleError));
+    }
+
     private extractData(res: any) {
     let body = res;
     return body || {};

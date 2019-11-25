@@ -96,7 +96,7 @@ export class ConfirmEventDialogComponent implements OnInit {
     }
 
     createAdminLock(start, end, destiny) {
-        this.eventService.postAdminLock(start, end, destiny)
+        this.eventService.postAdminLock("Automatic description", start, end, destiny)
             .subscribe(
                 data => {
                     this.message = data;

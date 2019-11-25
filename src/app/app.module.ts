@@ -16,6 +16,7 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -113,6 +114,7 @@ export function tokenGetter() {
         MatSnackBarModule,
         MatProgressBarModule,
         MatProgressSpinnerModule,
+        MatAutocompleteModule,
         StorageServiceModule
     ],
     providers: [AppStorageService,

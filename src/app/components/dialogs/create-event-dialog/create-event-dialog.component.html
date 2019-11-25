@@ -20,7 +20,7 @@
                 <mat-form-field class="w-75">
                     <mat-icon (click)="pickerStart.open()" class="icon-prefix" matPrefix>access_time</mat-icon>
                     <input *ngIf="!isNewEvent" disabled="disabled" matInput value="{{ apiEvent.start }}">
-                    <input *ngIf="isNewEvent" formControlName="startDate" matInput (click)="pickerStart.open()" [matDatepicker]="pickerStart" placeholder="Date and time">
+                    <input *ngIf="isNewEvent" formControlName="startDate" matInput (click)="pickerStart.open()" [matDatepicker]="pickerStart" placeholder="Date and time" (dateChange)="onStartDateChange($event)">
                     <mat-datepicker #pickerStart></mat-datepicker>
                 </mat-form-field>
                 <mat-form-field class="w-25">
@@ -41,8 +41,8 @@
             <div class="row">
                 <mat-form-field class="w-75">
                     <mat-icon (click)="pickerEnd.open()" class="icon-prefix" matPrefix>access_time</mat-icon>
-                    <input *ngIf="!isNewEvent" disabled="disabled" matInput value="{{ apiEvent.start }}" (click)="pickerEnd.open()" [matDatepicker]="pickerEnd">
-                    <input *ngIf="isNewEvent" formControlName="endDate" matInput (click)="pickerEnd.open()" [matDatepicker]="pickerEnd" placeholder="Date and time">
+                    <input *ngIf="!isNewEvent" disabled="disabled" matInput value="{{ apiEvent.start }}">
+                    <input *ngIf="isNewEvent" formControlName="endDate" matInput (click)="pickerEnd.open()" [value]="startDate" [matDatepicker]="pickerEnd" placeholder="Date and time">
                     <mat-datepicker #pickerEnd></mat-datepicker>
                 </mat-form-field>
                 <mat-form-field class="w-25">
@@ -63,7 +63,12 @@
             <div *ngIf="isNewEvent && eventType != 'LOCK'" class="row">
                 <mat-form-field class="w-100">
                     <mat-icon class="icon-prefix" matPrefix>people_alt</mat-icon>
-                    <input type="text" matInput placeholder="Add patients">
+                    <input type="text" matInput placeholder="Add patients" [matAutocomplete]="autoUser">
+                    <mat-autocomplete #autoUser="matAutocomplete">
+                        <mat-option *ngFor="let user of usersData" [value]="user.email">
+                            <span>{{ user.firstname }} {{ user.lastname }}</span>
+                        </mat-option>
+                    </mat-autocomplete>
                 </mat-form-field>
             </div>
 

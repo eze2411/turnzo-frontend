@@ -167,6 +167,7 @@ export class CalendarComponent implements OnInit {
         let eventStart = moment(event.event.start).format('YYYY-MM-DDTHH:mm:ss');
         let eventEnd = moment(event.event.end).format('YYYY-MM-DDTHH:mm:ss');
         this.updateEvent(eventStart, eventEnd);
+        this.renderUserEvents();
     }
 
     eventResizeStart(event) {
@@ -182,6 +183,7 @@ export class CalendarComponent implements OnInit {
         let eventStart = moment(event.event.start).format('YYYY-MM-DDTHH:mm:ss');
         let eventEnd = moment(event.event.end).format('YYYY-MM-DDTHH:mm:ss');
         this.updateEvent(eventStart, eventEnd);
+        this.renderUserEvents();
     }
 
     updateEvent(start ,end) {
