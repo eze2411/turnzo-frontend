@@ -22,28 +22,26 @@
                     <input *ngIf="!isNewEvent" disabled="disabled" matInput value="{{ apiEvent.start }}">
                     <input *ngIf="isNewEvent" formControlName="startDate" matInput (click)="pickerStart.open()" [matDatepicker]="pickerStart" placeholder="Date and time" (dateChange)="onStartDateChange($event)">
                     <mat-datepicker #pickerStart></mat-datepicker>
+                    <mat-error *ngIf="eventForm.get('startDate').hasError('required')">Required</mat-error>
                 </mat-form-field>
                 <mat-form-field class="w-25">
                     <mat-label>Start</mat-label>
-
-
                     <mat-select *ngIf="!isNewEvent" disabled="disabled" value="{{ eventHour }}"></mat-select>
-
                     <mat-select *ngIf="isNewEvent" formControlName="startTime">
                         <mat-option *ngFor="let hour of hoursList; let i = index" value="{{hour}}">
                             {{hour}}
                         </mat-option>
                     </mat-select>
-
-
+                    <mat-error *ngIf="eventForm.get('startTime').hasError('required')">Required</mat-error>
                 </mat-form-field>
             </div>
             <div class="row">
                 <mat-form-field class="w-75">
                     <mat-icon (click)="pickerEnd.open()" class="icon-prefix" matPrefix>access_time</mat-icon>
                     <input *ngIf="!isNewEvent" disabled="disabled" matInput value="{{ apiEvent.start }}">
-                    <input *ngIf="isNewEvent" formControlName="endDate" matInput (click)="pickerEnd.open()" [value]="startDate" [matDatepicker]="pickerEnd" placeholder="Date and time">
+                    <input *ngIf="isNewEvent" formControlName="endDate" matInput (click)="pickerEnd.open()" [matDatepicker]="pickerEnd" placeholder="Date and time">
                     <mat-datepicker #pickerEnd></mat-datepicker>
+                    <mat-error *ngIf="eventForm.get('endDate').hasError('required')">Required</mat-error>
                 </mat-form-field>
                 <mat-form-field class="w-25">
                     <mat-label>End</mat-label>
@@ -57,18 +55,21 @@
                             {{hour}}
                         </mat-option>
                     </mat-select>
+                    <mat-error *ngIf="eventForm.get('endTime').hasError('required')">Required</mat-error>
                 </mat-form-field>
             </div>
 
-            <div *ngIf="isNewEvent && eventType != 'LOCK'" class="row">
+            <div *ngIf="isNewEvent && eventType === 'TURNZO'" class="row">
                 <mat-form-field class="w-100">
                     <mat-icon class="icon-prefix" matPrefix>people_alt</mat-icon>
-                    <input type="text" matInput placeholder="Add patients" [matAutocomplete]="autoUser">
+                    <input formControlName="patient" type="text" matInput placeholder="Add patients" [matAutocomplete]="autoUser">
+
                     <mat-autocomplete #autoUser="matAutocomplete">
-                        <mat-option *ngFor="let user of usersData" [value]="user.email">
+                        <mat-option *ngFor="let user of filteredUsers | async" [value]="user.email.toString()">
                             <span>{{ user.firstname }} {{ user.lastname }}</span>
                         </mat-option>
                     </mat-autocomplete>
+                    <mat-error *ngIf="eventForm.get('patient').hasError('required')">Required</mat-error>
                 </mat-form-field>
             </div>
 
@@ -81,9 +82,10 @@
             </div>
         </div>
         <div mat-dialog-actions class="row justify-content-end">
-            <button mat-flat-button (click)="closeCreateEventDialog()">Cancel</button>
-            <button *ngIf="isNewEvent" mat-flat-button color="primary" (click)="validateForm()">Save</button>
-            <button *ngIf="!isNewEvent" mat-flat-button color="warn" (click)="onDeleteClick()">Delete</button>
+            <button *ngIf="!requestingCreateEvent" mat-flat-button (click)="closeCreateEventDialog()">Cancel</button>
+            <button *ngIf="isNewEvent && !requestingCreateEvent" mat-flat-button color="primary" (click)="validateForm()">Save</button>
+            <button *ngIf="!isNewEvent && !requestingCreateEvent" mat-flat-button color="warn" (click)="onDeleteClick()">Delete</button>
+            <mat-progress-spinner class="mx-auto mt-2" *ngIf="requestingCreateEvent" mode="indeterminate" [diameter]="30"></mat-progress-spinner>
         </div>
     </form>
 </div>

@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import * as moment from 'moment';
 import { EventService } from "../../../services/event.service";
 import {AppStorageService} from "../../../services/app-storage.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 export interface ConfirmEventData {
     action: string,
@@ -21,8 +22,11 @@ export class ConfirmEventDialogComponent implements OnInit {
     eventEnd: string;
     action: string;
     requestingDeleteEvent = false;
+    requestingCreateEvent = false;
 
-    constructor(public dialogRef: MatDialogRef<ConfirmEventDialogComponent>, private storage: AppStorageService,
+    constructor(public dialogRef: MatDialogRef<ConfirmEventDialogComponent>,
+                private _snackBar: MatSnackBar,
+                private storage: AppStorageService,
                 @Inject(MAT_DIALOG_DATA) public data: ConfirmEventData, private eventService: EventService) {
     }
 
@@ -54,12 +58,18 @@ export class ConfirmEventDialogComponent implements OnInit {
         this.eventService.cancelEvent(this.data.event.event_id)
             .subscribe(
                 data => {
-                    console.log(data);
+                    //console.log(data);
+                    this._snackBar.open("The event was successfully deleted", "OK", {
+                        duration: 3000,
+                    });
                 },
                 error => {
                     console.log(JSON.parse(error).status);
                     console.log(JSON.parse(error).message);
                     // mandar a pantalla de error
+                    this._snackBar.open("There was a problem while creating the event, try again later", "Cancel", {
+                        duration: 3000,
+                    });
                 },
                 () => {
                     this.dialogRef.close();
@@ -79,35 +89,50 @@ export class ConfirmEventDialogComponent implements OnInit {
     }
 
     createUserEvent(description, start, end, destiny) {
+        this.requestingCreateEvent = true;
         this.eventService.postUserEvent(description, start, end, destiny)
             .subscribe(
                 data => {
                     this.message = data;
+                    this._snackBar.open("The event was successfully created", "OK", {
+                        duration: 3000,
+                    });
                 },
                 error => {
                     //console.log(JSON.parse(error).status);
                     //console.log(JSON.parse(error).message);
-                    // mandar a pantalla de error
+                    //this.requestingCreateEvent = false;
+                    this._snackBar.open("There was a problem while creating the event, try again later", "Cancel", {
+                        duration: 3000,
+                    });
                 },
                 () => {
-                    //console.log(this.message);
+                    //this.requestingCreateEvent = false;
                 }
             );
     }
 
     createAdminLock(start, end, destiny) {
+        this.requestingCreateEvent = true;
         this.eventService.postAdminLock("Automatic description", start, end, destiny)
             .subscribe(
                 data => {
                     this.message = data;
+                    this._snackBar.open("The event was successfully created", "OK", {
+                        duration: 3000,
+                    });
                 },
                 error => {
+
                     //console.log(JSON.parse(error).status);
                     //console.log(JSON.parse(error).message);
-                    // mandar a pantalla de error
+                    //this.requestingCreateEvent = false;
+                    this._snackBar.open("There was a problem while creating the event, try again later", "Cancel", {
+                        duration: 3000,
+                    });
                 },
                 () => {
-                    //console.log("aca: " + this.message);
+                    //this.requestingCreateEvent = false;
                 }
             );
     }

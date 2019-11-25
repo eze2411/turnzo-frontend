@@ -1,6 +1,6 @@
 <div id="sidebar" class="container d-flex flex-column">
 
-    <button class="create-btn mt-4" mat-flat-button color="primary" (click)="createEventDialog()">
+    <button *ngIf="userData.role == 'ADMIN'" class="create-btn mt-4" mat-flat-button color="primary" (click)="createEventDialog()">
         <mat-icon class="icon-prefix">add</mat-icon>
         <span class="ml-2">Create</span>
     </button>

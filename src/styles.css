@@ -99,7 +99,7 @@ h1 {
 }
 
 .user-menu {
-    width: 195px;
+    min-width: 160px;
     height: 240px;
     font-family: 'Roboto', sans-serif;
     font-size: 14px;

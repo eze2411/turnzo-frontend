@@ -33,6 +33,16 @@ export class EventService {
         return this.http.post(apiUrl + '/turnzo', body, {headers}).pipe(this.extractData, catchError(this.handleError))
     }
 
+    postManualUserEvent(description: string, start: string, end: string, origin: string): Observable<any> {
+        let body = {
+            'description': description,
+            'start': start,
+            'end': end,
+            'origin': origin
+        };
+        return this.http.post(apiUrl + '/turnzo/manual', body, {headers}).pipe(this.extractData, catchError(this.handleError))
+    }
+
     private extractData(res: any) {
         let body = res;
         return body || {};

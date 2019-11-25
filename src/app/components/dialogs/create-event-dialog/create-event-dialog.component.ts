@@ -7,6 +7,8 @@ import {EventService} from "../../../services/event.service";
 import {AppStorageService} from "../../../services/app-storage.service";
 import {ConfirmEventDialogComponent} from "../confirm-event-dialog/confirm-event-dialog.component";
 import {UserService} from "../../../services/user.service";
+import {Observable} from "rxjs";
+import { startWith, map } from "rxjs/operators";
 
 export interface CreateEventData {
     events?: any;
@@ -35,6 +37,8 @@ export class CreateEventDialogComponent implements OnInit {
     userData: any;
     usersData: any;
     startDate: any;
+    filteredUsers: Observable<any>;
+    requestingCreateEvent = false;
 
 
 	constructor(private fb: FormBuilder,
@@ -53,8 +57,6 @@ export class CreateEventDialogComponent implements OnInit {
         for (let i = 9; i < 20 ; i++)
             this.hoursList.push(i);
 
-        this.getAllUsersInfo();
-
 	    this.isNewEvent = this.data.isNewEvent;
 
 	    // busca turno en el listado para pintar los datos en el modal
@@ -64,26 +66,15 @@ export class CreateEventDialogComponent implements OnInit {
             this.matchFullCalendarApiEvent();
         }
 
-	    if(this.eventType === 'TURNZO') {
-            this.eventForm = this.fb.group({
-                type: new FormControl('', [Validators.required]),
-                startDate: new FormControl('', [Validators.required]),
-                endDate: new FormControl('', [Validators.required]),
-                startTime: new FormControl('', [Validators.required]),
-                endTime: new FormControl('', [Validators.required]),
-                patient: new FormControl('', [Validators.required]),
-                description: new FormControl('', [Validators.required])
-            });
-        } else {
-            this.eventForm = this.fb.group({
-                type: new FormControl('', [Validators.required]),
-                startDate: new FormControl('', [Validators.required]),
-                endDate: new FormControl('', [Validators.required]),
-                startTime: new FormControl('', [Validators.required]),
-                endTime: new FormControl('', [Validators.required]),
-                description: new FormControl('')
-            });
-        }
+        this.eventForm = this.fb.group({
+            type: new FormControl('', [Validators.required]),
+            startDate: new FormControl('', [Validators.required]),
+            endDate: new FormControl('', [Validators.required]),
+            startTime: new FormControl('', [Validators.required]),
+            endTime: new FormControl('', [Validators.required]),
+            patient: new FormControl(''),
+            description: new FormControl('')
+        });
 	}
 
 	matchFullCalendarApiEvent() {
@@ -104,17 +95,24 @@ export class CreateEventDialogComponent implements OnInit {
 	}
 
     setEventType(type: string) {
+	    if (type === 'TURNZO') {
+            this.eventForm.get('patient').setValidators([Validators.required]);
+            this.getAllUsersInfo();
+        } else if (type === 'LOCK') {
+	        this.eventForm.get('patient').clearValidators();
+        }
         this.eventType = type;
     }
 
     validateForm() {
         if(this.eventForm.valid) {
-            let type = this.eventForm.get('type').value;
-            let startDate = this.eventForm.get('startDate').value;
-            let endDate = this.eventForm.get('endDate').value;
-            let startTime = this.eventForm.get('startTime').value;
-            let endTime = this.eventForm.get('endTime').value;
-            let description = this.eventForm.get('description').value;
+            let type = this.eventForm.value.type;
+            let startDate = this.eventForm.value.startDate;
+            let endDate = this.eventForm.value.endDate;
+            let startTime = this.eventForm.value.startTime;
+            let endTime = this.eventForm.value.endTime;
+            let patient = this.eventForm.value.patient;
+            let description = this.eventForm.value.description ? this.eventForm.value.description : "Automatic description";
             let shiftStart = new Date (moment(startDate).year(), moment(startDate).month(), moment(startDate).date(), startTime);
             let shiftEnd = new Date (moment(endDate).year(), moment(endDate).month(), moment(endDate).date(), endTime);
             let start = moment(shiftStart).format('YYYY-MM-DDTHH:mm:ss');
@@ -128,25 +126,60 @@ export class CreateEventDialogComponent implements OnInit {
             }
 
             if (type === 'TURNZO') {
-                //aca registro el evento
-            } else {
+                this.createUserEvent(description, start, end, patient);
+            } else if (type === 'LOCK') {
                 this.createAdminLock(description, start, end, this.userData.email);
             }
+        } else  {
+            Object.keys(this.eventForm.controls).forEach(field => this.eventForm.get(field).markAsTouched({onlySelf: true}));
         }
     }
 
     createAdminLock(description, start, end, destiny) {
+	    this.requestingCreateEvent = true;
         this.eventService.postAdminLock(description, start, end, destiny)
             .subscribe(
                 data => {
                     this.message = data;
+                    this._snackBar.open("The event was successfully created", "OK", {
+                        duration: 3000,
+                    });
                 },
                 error => {
                     //console.log(JSON.parse(error).status);
                     //console.log(JSON.parse(error).message);
-                    // mandar a pantalla de error
+                    this.requestingCreateEvent = false;
+                    this._snackBar.open("There was a problem while creating the event, try again later", "Cancel", {
+                        duration: 3000,
+                    });
                 },
                 () => {
+                    this.requestingCreateEvent = false;
+                    this.dialogRef.close();
+                }
+            );
+    }
+
+    createUserEvent(description, start, end, origin) {
+        this.requestingCreateEvent = true;
+        this.eventService.postManualUserEvent(description, start, end, origin)
+            .subscribe(
+                data => {
+                    this.message = data;
+                    this._snackBar.open("The event was successfully created", "OK", {
+                        duration: 3000,
+                    });
+                },
+                error => {
+                    //console.log(JSON.parse(error).status);
+                    //console.log(JSON.parse(error).message);
+                    this.requestingCreateEvent = false;
+                    this._snackBar.open("There was a problem while creating the event, try again later", "Cancel", {
+                        duration: 3000,
+                    });
+                },
+                () => {
+                    this.requestingCreateEvent = false;
                     this.dialogRef.close();
                 }
             );
@@ -172,6 +205,12 @@ export class CreateEventDialogComponent implements OnInit {
             .subscribe(
                 data => {
                     this.usersData = data.results;
+                    console.log(this.eventForm);
+                    this.filteredUsers = this.eventForm.get('patient').valueChanges
+                        .pipe(
+                            startWith(''),
+                            map(value => this._filter(value))
+                        );
                     console.log(this.usersData);
                 },
                 error => {
@@ -180,7 +219,6 @@ export class CreateEventDialogComponent implements OnInit {
                     this._snackBar.open("There was a problem while fetching users, try again later", "Cancel", {
                         duration: 3000,
                     });
-                    // mandar a pantalla de error?
                 },
                 () => {
                     //console.log('isValid: ' + this.message.status);
@@ -188,7 +226,17 @@ export class CreateEventDialogComponent implements OnInit {
             );
     }
 
+    private _filter(value: string): any[] {
+        if (value && value.length > 0) {
+            const filterValue = value.toLowerCase();
+            console.log(this.usersData.filter(user => user.firstname.toLowerCase().includes(filterValue) || user.lastname.toLowerCase().includes(filterValue)));
+            return this.usersData.filter(user => user.firstname.toLowerCase().includes(filterValue) || user.lastname.toLowerCase().includes(filterValue));
+        }
+        return this.usersData;
+    }
+
     onStartDateChange(event) {
         this.startDate = event.value;
+        this.eventForm.get('endDate').patchValue(this.startDate);
     }
 }
