@@ -12,22 +12,14 @@
                 <mat-icon class="mr-4 icon-2x">account_circle</mat-icon>
             </button>
             <mat-menu class="user-menu" #menu>
-                <div class="text-center p-3">
-                    <p>{{ userData.email }}</p>
-                </div>
-                <div class="p-3">
-                    <p>{{ userData.role }}</p>
+                <div class="p-3 text-center">
+                    {{ userData.email }} - <strong>{{ userData.role }}</strong>
                 </div>
                 <mat-divider></mat-divider>
                 <button mat-menu-item (click)="goTo.emit('profile')">Edit profile</button>
                 <button mat-menu-item (click)="goTo.emit('settings')">Settings</button>
                 <button mat-menu-item (click)="logout()">Log out</button>
             </mat-menu>
-            <div class="dropdown-menu" aria-labelledby="dropdownUserMenu">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-            </div>
         </div>
     </nav>
 </header>

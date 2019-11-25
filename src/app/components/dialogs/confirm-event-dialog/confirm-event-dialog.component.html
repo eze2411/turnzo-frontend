@@ -4,8 +4,9 @@
         <h3>{{ formatDate(data) }}</h3>
     </div>
     <div mat-dialog-actions class="row justify-content-center mt-3">
-        <button (click)="closeConfirmEventDialog()" mat-flat-button>Cancel</button>
-        <button *ngIf="action == 'confirm'" (click)="doConfirmEventDialog()" color="primary" mat-flat-button>Confirm</button>
-        <button *ngIf="action == 'delete'" (click)="doConfirmEventDialog()" color="warn" mat-flat-button>Delete</button>
+        <button *ngIf="!requestingDeleteEvent" (click)="closeConfirmEventDialog()" mat-flat-button>Cancel</button>
+        <button *ngIf="action == 'confirm' && !requestingDeleteEvent" (click)="doConfirmEventDialog()" color="primary" mat-flat-button>Confirm</button>
+        <button *ngIf="action == 'delete' && !requestingDeleteEvent" (click)="doConfirmEventDialog()" color="warn" mat-flat-button>Delete</button>
+        <mat-progress-spinner class="mx-auto mt-2" *ngIf="requestingDeleteEvent" mode="indeterminate" [diameter]="30"></mat-progress-spinner>
     </div>
 </div>

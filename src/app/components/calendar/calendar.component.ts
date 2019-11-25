@@ -132,20 +132,25 @@ export class CalendarComponent implements OnInit {
     }
 
     onDateClick(event) {
-        console.log(event);
-        const dialogRef = this.dialog.open(ConfirmEventDialogComponent, {
-            width: '500px',
-            data: {
-                action: 'confirm',
-                event: event
-            }
-        });
+        if (this.userData.role == 'USER') {
+            if (!this.adminCalendarShowView)
+                return false;
+            else
+                event.admin = this.adminCalendarShowView;
+        }
+            const dialogRef = this.dialog.open(ConfirmEventDialogComponent, {
+                width: '500px',
+                data: {
+                    action: 'confirm',
+                    event: event
+                }
+            });
 
-        //console.log('The dialog was opened');
-        dialogRef.afterClosed().subscribe(result => {
-            //console.log('The dialog was closed');
-            this.renderEvents();
-        });
+            //console.log('The dialog was opened');
+            dialogRef.afterClosed().subscribe(result => {
+                this.renderEvents();
+            });
+
     }
 
     eventDragStart(event) {
