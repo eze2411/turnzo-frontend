@@ -32,8 +32,8 @@ export class CalendarComponent implements OnInit {
         this.initCalendarData();
         this.renderEvents();
         setInterval(()=> {
-            //this.renderAllEvents();
-        }, 2000)
+            this.renderEvents();
+        }, 2000);
 
     }
 
@@ -187,7 +187,7 @@ export class CalendarComponent implements OnInit {
     }
 
     updateEvent(start ,end) {
-        this.eventService.putEvent("asd", start, end, this.eventId)
+        this.eventService.postUpdateEvent("asd", start, end, this.eventId)
             .subscribe(
                 data => {
                     console.log(data);

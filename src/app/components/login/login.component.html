@@ -26,12 +26,14 @@
                 </form>
               <p class="link-primary font-14">Forgot password?</p>
               <p class="link-primary font-14" (click)="goRegister('USER')">Register</p>
-                <button class="mt-2 submit-btn" mat-flat-button color="primary" (click)="validateForm()">SUBMIT</button>
+                <div class="d-flex flex-column align-items-center">
+                    <button class="mt-2 submit-btn" mat-flat-button color="primary" (click)="validateForm()">SUBMIT</button>
+                    <button class="mt-4 buynow-btn" mat-flat-button color="primary" (click)="goRegister('ADMIN')">
+                        <mat-icon color="white">shopping_cart</mat-icon>
+                        BUY NOW
+                    </button>
+                </div>
             </mat-card>
-            <button class="mt-4 buynow-btn" mat-flat-button color="primary" (click)="goRegister('ADMIN')">
-                <mat-icon color="white">shopping_cart</mat-icon>
-                BUY NOW
-            </button>
         </div>
     </div>
 </div>

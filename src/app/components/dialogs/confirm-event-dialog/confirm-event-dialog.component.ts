@@ -55,7 +55,7 @@ export class ConfirmEventDialogComponent implements OnInit {
 
     deleteEvent(): void {
         this.requestingDeleteEvent = true;
-        this.eventService.cancelEvent(this.data.event.event_id)
+        this.eventService.postDeleteEvent(this.data.event.event_id)
             .subscribe(
                 data => {
                     //console.log(data);

@@ -5,6 +5,7 @@ import { UserService } from 'src/app/services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {Router} from "@angular/router";
 import {Observable} from "rxjs";
+import {last} from "rxjs/operators";
 
 @Component({
 	selector: 'app-register-form',
@@ -19,11 +20,10 @@ export class RegisterFormComponent implements OnInit {
 	hide = true;
 	registerForm: FormGroup;
 	isInvalidTerms: Boolean;
-    requestingActivation = false;
-    state: Observable<any>;
+    requestingRegistration = false;
 
-	@Output() onSuccess: EventEmitter<Boolean> = new EventEmitter<Boolean>();
-	@Output() onError: EventEmitter<Boolean> = new EventEmitter<Boolean>();
+    @Output()goTo = new EventEmitter();
+    @Output()adminToActivate  = new EventEmitter();
 
 	constructor(private fb: FormBuilder,
                 private userService: UserService,
@@ -38,20 +38,33 @@ export class RegisterFormComponent implements OnInit {
             email: new FormControl('', [Validators.required, Validators.email]),
             password: new FormControl('', [Validators.required]),
             terms: new FormControl('', [Validators.required])
-        })
+        });
 		this.isInvalidTerms = null;
 	}
 
 	validateForm() {
 		if (this.registerForm.valid) {
-            this.requestingActivation = true;
+            this.requestingRegistration = true;
 			let firstname = this.registerForm.get('firstname').value;
 			let lastname = this.registerForm.get('lastname').value;
 			let birthdate = this.registerForm.get('birthdate').value;
 			let role = history.state.role == 'ADMIN' ? 'ADMIN' : 'USER';
 			let email = this.registerForm.get('email').value;
 			let password = this.registerForm.get('password').value;
-			this.postUserDataToApi(firstname, lastname, birthdate, role ,email, password);
+			console.log(role);
+			if (role === 'ADMIN') {
+                this.goTo.emit('activate');
+                let admin = {
+                    'firstname': firstname,
+                    'lastname': lastname,
+                    'email': email,
+                    'birthdate': birthdate,
+                    'password': password
+                };
+                this.adminToActivate.emit(admin);
+            } else {
+                this.postUserDataToApi(firstname, lastname, birthdate, role ,email, password);
+            }
 		} else {
 			if(this.registerForm.get('terms').hasError) {
 				this.isInvalidTerms = true;
@@ -61,16 +74,16 @@ export class RegisterFormComponent implements OnInit {
 	}
 
 	postUserDataToApi(firstname, lastname, birthdate, role, email, password) {
-		this.userService.registerUser(firstname, lastname, birthdate, role, email, password)
+		this.userService.postCreateUser(firstname, lastname, birthdate, role, email, password)
 		.subscribe(
 			data => {
 				this.message = data;
-				this.onSuccess.emit();
+                this.goTo.emit('success');
 			},
 			error => {
 				//console.log("status --"  + JSON.parse(error).status);
 				//console.log("message --" + JSON.parse(error).message);
-                this.requestingActivation = false;
+                this.requestingRegistration = false;
 				this._snackBar.open("There was a problem with your request, try again later", "Cancel", {
 					duration: 3000,
 				  });
@@ -78,7 +91,7 @@ export class RegisterFormComponent implements OnInit {
 			},
 			() => {
                 //console.log('isValid: ' + this.message.status);
-                this.requestingActivation = false;
+                this.requestingRegistration = false;
             }
 			);
 	}

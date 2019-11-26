@@ -45,21 +45,22 @@
                     <button mat-icon-button matSuffix (click)="hidePassActual = !hidePassActual" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassActual">
                         <mat-icon>{{hidePassActual ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
-                    <mat-error *ngIf="passwordForm.get('passActual').invalid">You must provide an alphanumeric 8-characters-digit at least</mat-error>
+                    <mat-error *ngIf="passwordForm.get('passActual').hasError('required')">Required</mat-error>
                 </mat-form-field>
                 <mat-form-field class="mt-1 w-100 w-lg-75">
                     <input matInput type="text" placeholder="New password" [type]="hidePassNew1 ? 'password' : 'text'" formControlName="passNew1" (change)="setPassNew2Validation()">
                     <button mat-icon-button matSuffix (click)="hidePassNew1 = !hidePassNew1" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassNew1">
                         <mat-icon>{{hidePassNew1 ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
-                    <mat-error *ngIf="passwordForm.get('passNew1').invalid">You must provide an alphanumeric 8-characters-digit at least</mat-error>
+                    <mat-error *ngIf="passwordForm.get('passNew1').hasError('required')">Required</mat-error>
                 </mat-form-field>
                 <mat-form-field class="mt-1 w-100 w-lg-75">
                     <input matInput type="text" placeholder="Confirm new password" [type]="hidePassNew2 ? 'password' : 'text'" formControlName="passNew2">
                     <button mat-icon-button matSuffix (click)="hidePassNew2 = !hidePassNew2" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassNew2">
                         <mat-icon>{{hidePassNew2 ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
-                    <mat-error *ngIf="passwordForm.get('passNew2').invalid">Passwords don't match / are invalid</mat-error>
+                    <mat-error *ngIf="passwordForm.get('passNew2').hasError('required')">Required</mat-error>
+                    <mat-error *ngIf="passwordForm.get('passNew2').hasError('pattern')">Passwords don't match</mat-error>
                 </mat-form-field>
             </form>
             <button *ngIf="!requestingPasswordReset" class="submit-btn mt-2" mat-flat-button color="primary" (click)="validatePasswordForm()">SUBMIT</button>

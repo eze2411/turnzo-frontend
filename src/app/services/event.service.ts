@@ -16,11 +16,11 @@ export class EventService {
     }
 
     getAdminEvents(): Observable<any> {
-        return this.http.get(apiUrl + '/admin', {headers}).pipe(this.extractData, catchError(this.handleError))
+        return this.http.get(apiUrl + '/admin', {headers}).pipe(this.extractData, catchError(this.handleError));
     }
 
     getUserEventsByAdmin(admin: string, user: string): Observable<any> {
-        return this.http.get(apiUrl + '/user/' + admin, {headers}).pipe(this.extractData, catchError(this.handleError))
+        return this.http.get(apiUrl + '/user/' + admin, {headers}).pipe(this.extractData, catchError(this.handleError));
     }
 
     postUserEvent(description: string, start: string, end: string, destiny: string): Observable<any> {
@@ -30,7 +30,7 @@ export class EventService {
             'end': end,
             'destiny': destiny
         };
-        return this.http.post(apiUrl + '/turnzo', body, {headers}).pipe(this.extractData, catchError(this.handleError))
+        return this.http.post(apiUrl + '/turnzo', body, {headers}).pipe(this.extractData, catchError(this.handleError));
     }
 
     postManualUserEvent(description: string, start: string, end: string, origin: string): Observable<any> {
@@ -40,16 +40,7 @@ export class EventService {
             'end': end,
             'origin': origin
         };
-        return this.http.post(apiUrl + '/turnzo/manual', body, {headers}).pipe(this.extractData, catchError(this.handleError))
-    }
-
-    private extractData(res: any) {
-        let body = res;
-        return body || {};
-    }
-
-    private handleError(error: any) {
-        return observableThrowError(JSON.stringify(error))
+        return this.http.post(apiUrl + '/turnzo/manual', body, {headers}).pipe(this.extractData, catchError(this.handleError));
     }
 
     postAdminLock(description: string, start: string, end: string, destiny: string): Observable<any> {
@@ -59,22 +50,30 @@ export class EventService {
             'end': end,
             'destiny': destiny
         };
-        return this.http.post(apiUrl + '/lock', body, {headers}).pipe(this.extractData, catchError(this.handleError))
+        return this.http.post(apiUrl + '/lock', body, {headers}).pipe(this.extractData, catchError(this.handleError));
     }
 
-    cancelEvent(eventId: string): Observable<any> {
-        let body = {'id': eventId
-        };
-        return this.http.post(apiUrl + '/delete' , body, {headers}).pipe(this.extractData, catchError(this.handleError))
+    postDeleteEvent(eventId: string): Observable<any> {
+        let body = { 'id': eventId };
+        return this.http.post(apiUrl + '/delete', body , {headers}).pipe(this.extractData, catchError(this.handleError));
     }
 
-    putEvent(description: string, start: string, end: string, id: string): Observable<any> {
+    postUpdateEvent(description: string, start: string, end: string, id: string): Observable<any> {
         let body = {
             'description' : description,
             'start' : start,
             'end' : end,
             'id' : id
         };
-        return this.http.post(apiUrl + '/update', body, {headers}).pipe(this.extractData, catchError(this.handleError))
+        return this.http.post(apiUrl + '/update', body, {headers}).pipe(this.extractData, catchError(this.handleError));
+    }
+
+    private extractData(res: any) {
+        let body = res;
+        return body || {};
+    }
+
+    private handleError(error: any) {
+        return observableThrowError(JSON.stringify(error))
     }
 }

@@ -46,6 +46,7 @@ import { ConfirmDialogComponent } from './components/dialogs/confirm-dialog/conf
 import { SearchComponent } from './components/search/search.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { RegisterActivationComponent } from './components/register/register-activation/register-activation.component';
 
 export function tokenGetter() {
     return localStorage.getItem("access_token");
@@ -68,7 +69,8 @@ export function tokenGetter() {
         ProfileComponent,
         SettingsComponent,
         ConfirmDialogComponent,
-        SearchComponent
+        SearchComponent,
+        RegisterActivationComponent
     ],
     entryComponents: [
         CreateEventDialogComponent,

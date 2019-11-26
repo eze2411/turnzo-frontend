@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
         if (err.message) {
             return this._snackBar.open(err.message, 'OK', {duration: 2000});
         }
-
+        console.log(err);
         this._snackBar.open('There was a problem with your request.', 'OK', {duration: 2000})
     }
 

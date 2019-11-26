@@ -23,10 +23,8 @@ export class SearchComponent implements OnInit, OnChanges {
         this.userData = this.storage.getStoredUser();
     }
 
-    ngOnChanges(changes: SimpleChanges): void {
-      console.log("asdasd");
+    ngOnChanges(changes: SimpleChanges) {
         if (changes.searchString.currentValue) {
-            console.log("xcxcxc");
             this.currentValue = changes.searchString.currentValue;
             this.userData = this.storage.getStoredUser();
             this.getEvents();
@@ -77,7 +75,7 @@ export class SearchComponent implements OnInit, OnChanges {
 
 
     private filterEventsData() {
-      let current = this.currentValue.toLowerCase();
-      this.filteredEventsData = this.eventsData.filter(event => (event.title.toLowerCase().indexOf(current) > -1 || event.event_description.toLowerCase().indexOf(current) > -1));
+        let current = this.currentValue.toLowerCase();
+        this.filteredEventsData = this.eventsData.filter(event => (event.title.toLowerCase().indexOf(current) > -1 || event.event_description.toLowerCase().indexOf(current) > -1));
     }
 }
