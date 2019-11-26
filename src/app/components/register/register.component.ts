@@ -1,21 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+    selector: 'app-register',
+    templateUrl: './register.component.html',
+    styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  onSuccess: Boolean;
+    showView: string;
+    adminData: any;
   
-  constructor() { }
+    constructor() { }
 
-  ngOnInit() {
-    this.onSuccess = false;
-  }
-
-  setSuccess() {
-    this.onSuccess = true;
-  }
+    ngOnInit() {
+        this.showView = 'form';
+    }
 
 }

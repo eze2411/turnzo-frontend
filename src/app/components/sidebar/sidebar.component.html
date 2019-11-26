@@ -22,16 +22,16 @@
         </mat-chip-list>
     </mat-expansion-panel>
 
-    <mat-expansion-panel *ngIf="userData.role == 'ADMIN'" [expanded]="false">
+    <mat-expansion-panel *ngIf="userData.role == 'ADMIN'" [expanded]="true">
         <mat-expansion-panel-header>
             <mat-panel-title>
                 Next Events
             </mat-panel-title>
         </mat-expansion-panel-header>
         <mat-chip-list class="mat-chip-list-stacked">
-            <mat-chip *ngFor="let admin of adminsData; let i = index" [selected]="selectedAdmin === admin.email" color="primary" (click)="onAdminChipClick(admin)">
-                {{ admin.firstname }} {{ admin.lastname }}
-            </mat-chip>
+            <mat-chip *ngFor="let event of filteredEventsData; let i = index" color="primary">
+            {{ event.start }}
+        </mat-chip>
         </mat-chip-list>
     </mat-expansion-panel>
 

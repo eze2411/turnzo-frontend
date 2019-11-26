@@ -1,2 +1,3 @@
-<app-register-form *ngIf="!onSuccess" (onSuccess)="setSuccess()"></app-register-form>
-<app-register-success *ngIf="onSuccess" ></app-register-success>
+<app-register-form *ngIf="showView === 'form'" (goTo)="showView = $event" (adminToActivate)="adminData = $event"></app-register-form>
+<app-register-success *ngIf="showView === 'success'" ></app-register-success>
+<app-register-activation *ngIf="showView === 'activate'" (goTo)="showView = $event" [admin]="adminData"></app-register-activation>

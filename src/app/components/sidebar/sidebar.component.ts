@@ -5,6 +5,8 @@ import {AppStorageService} from "../../services/app-storage.service";
 import {FormControl} from "@angular/forms";
 import {AdminService} from "../../services/admin.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {EventService} from "../../services/event.service";
+import * as moment from "moment";
 
 @Component({
     selector: 'app-sidebar',
@@ -16,6 +18,8 @@ export class SidebarComponent implements OnInit {
     userData: any;
     searchInput = new FormControl('');
     selectedAdmin: string;
+    eventsData: any;
+    filteredEventsData: any;
 
     @Output()goTo  = new EventEmitter();
     @Output()searchValue  = new EventEmitter();
@@ -24,12 +28,18 @@ export class SidebarComponent implements OnInit {
     constructor(public dialog: MatDialog,
                 private adminService: AdminService,
                 private storage: AppStorageService,
+                private eventService: EventService,
                 private _snackBar: MatSnackBar) {
     }
 
     ngOnInit() {
         this.userData = this.storage.getStoredUser();
         this.getAdminsInfoFromApi();
+        this.getAdminEventsFromApi();
+
+        setInterval(()=> {
+            this.getAdminEventsFromApi();
+        }, 2000);
     }
 
     createEventDialog(): void {
@@ -73,8 +83,34 @@ export class SidebarComponent implements OnInit {
             );
     }
 
+    getAdminEventsFromApi() {
+        this.eventService.getAdminEvents()
+            .subscribe(
+                data => {
+                    this.eventsData = data.events[0];
+                    this.filterNextEventsData();
+                },
+                error => {
+                    //console.log("status --"  + JSON.parse(error).status);
+                    //console.log("message --" + JSON.parse(error).message);
+                    this._snackBar.open("There was a problem while fetching events, try again later", "Cancel", {
+                        duration: 3000,
+                    });
+                    // mandar a pantalla de error?
+                },
+                () => {
+                    //console.log('isValid: ' + this.message.status);
+                }
+            );
+    }
+
     onAdminChipClick(admin) {
         this.selectedAdmin = admin.email;
         this.adminCalendar.emit(this.selectedAdmin);
+    }
+
+    filterNextEventsData() {
+        this.filteredEventsData = this.eventsData.filter(event => moment(event.start).format('YYYY-MM-DDTHH:mm:ss') > moment().format('YYYY-MM-DDTHH:mm:ss'));
+        this.filteredEventsData = this.filteredEventsData.slice(0,5);
     }
 }

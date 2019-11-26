@@ -41,8 +41,8 @@ export class ProfileComponent implements OnInit {
         });
 
         this.passwordForm = this.fb.group({
-            passActual: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$'), Validators.minLength(8)]),
-            passNew1: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$'), Validators.minLength(8)]),
+            passActual: new FormControl('', [Validators.required]),
+            passNew1: new FormControl('', [Validators.required]),
             passNew2: new FormControl('', [Validators.required])
         });
     }
@@ -54,7 +54,7 @@ export class ProfileComponent implements OnInit {
           let firstname = this.updateForm.get('firstname').value;
           let lastname = this.updateForm.get('lastname').value;
           let birthdate = this.updateForm.get('birthdate').value;
-          this.postPersonalInfoToApi(firstname, lastname, moment(birthdate).format('YYYY-MM-DDTHH:mm:ss'));
+          this.postPersonalInfoToApi(firstname, lastname, birthdate);
       } else {
           // invalid form
           Object.keys(this.updateForm.controls).forEach(field => this.updateForm.get(field).markAsTouched({ onlySelf: true }));
@@ -64,10 +64,9 @@ export class ProfileComponent implements OnInit {
     validatePasswordForm() {
         this.requestingPasswordReset = true;
         if (this.passwordForm.valid) {
-            this._snackBar.open("There was a problem with your request, try again later", "Cancel", {
-                duration: 3000,
-        });
-            this.requestingPasswordReset = false;
+            let currentPassword = this.updateForm.value.passActual;
+            let newPassword = this.updateForm.value.passNew2;
+            this.putResetPasswordToApi(currentPassword, newPassword);
         } else {
             Object.keys(this.passwordForm.controls).forEach(field => this.passwordForm.get(field).markAsTouched({ onlySelf: true }));
             this.requestingPasswordReset = false;
@@ -77,6 +76,31 @@ export class ProfileComponent implements OnInit {
 
     postPersonalInfoToApi(firstname, lastname, birthdate) {
         this.userService.updateUserInfo(firstname, lastname, birthdate)
+            .subscribe(
+                data => {
+                    this.message = data;
+                    console.log(this.message);
+                    this.onUpdateSuccess();
+                },
+                error => {
+                    console.log("status --"  + JSON.parse(error).status);
+                    console.log("message --" + JSON.parse(error).message);
+                    this.requestingUpdate = false;
+                    this._snackBar.open("There was a problem with your request, try again later", "Cancel", {
+                        duration: 3000,
+                    });
+                    // mandar a pantalla de error?
+                },
+                () => {
+                    //console.log('isValid: ' + this.message.status);
+                    this.requestingUpdate = false;
+                    this.getPersonalInfoFromApi();
+                }
+            );
+    }
+
+    putResetPasswordToApi(currentPassword, newPassword) {
+        this.userService.updateUserPassword(currentPassword, newPassword)
             .subscribe(
                 data => {
                     this.message = data;
