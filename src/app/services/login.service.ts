@@ -7,8 +7,8 @@ import {AppStorageService} from "./app-storage.service";
 import { JwtHelperService } from '@auth0/angular-jwt';
 import {Router} from "@angular/router";
 
-const headers = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'})
-const apiUrl = "http://ec2-18-189-16-252.us-east-2.compute.amazonaws.com:3000/login"
+const headers = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
+const apiUrl = "http://localhost:3000/login";
 
 @Injectable({
     providedIn: 'root'

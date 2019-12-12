@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import {MatDialog} from '@angular/material/dialog';
 import {CreateEventDialogComponent} from '../dialogs/create-event-dialog/create-event-dialog.component';
@@ -14,11 +14,12 @@ import * as moment from "moment";
     templateUrl: './calendar.component.html',
     styleUrls: ['./calendar.component.scss']
 })
-export class CalendarComponent implements OnInit {
+export class CalendarComponent implements OnInit, OnDestroy {
     userData: any;
     eventsData: any;
     calendarData: any;
     eventId: string;
+    interval: any;
 
     @Input() adminCalendarShowView: string;
 
@@ -31,10 +32,14 @@ export class CalendarComponent implements OnInit {
         this.userData = this.storage.getStoredUser();
         this.initCalendarData();
         this.renderEvents();
-        setInterval(()=> {
+        this.interval = setInterval(() => {
             this.renderEvents();
         }, 2000);
 
+    }
+
+    ngOnDestroy(): void {
+        clearInterval(this.interval);
     }
 
     ngOnChanges(changes: SimpleChanges) {

@@ -1,4 +1,14 @@
-import {Component, OnInit, Inject, Output, EventEmitter} from '@angular/core';
+import {
+    Component,
+    OnInit,
+    Inject,
+    Output,
+    EventEmitter,
+    OnDestroy,
+    Input,
+    OnChanges,
+    SimpleChanges
+} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {CreateEventDialogComponent} from '../dialogs/create-event-dialog/create-event-dialog.component';
 import {AppStorageService} from "../../services/app-storage.service";
@@ -13,13 +23,14 @@ import * as moment from "moment";
     templateUrl: './sidebar.component.html',
     styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, OnDestroy {
     adminsData: any;
     userData: any;
     searchInput = new FormControl('');
     selectedAdmin: string;
     eventsData: any;
     filteredEventsData: any;
+    interval: any;
 
     @Output()goTo  = new EventEmitter();
     @Output()searchValue  = new EventEmitter();
@@ -37,9 +48,13 @@ export class SidebarComponent implements OnInit {
         this.getAdminsInfoFromApi();
         this.getAdminEventsFromApi();
 
-        setInterval(()=> {
+        this.interval = setInterval(() => {
             this.getAdminEventsFromApi();
         }, 2000);
+    }
+
+    ngOnDestroy(): void {
+        clearInterval(this.interval);
     }
 
     createEventDialog(): void {

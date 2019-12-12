@@ -3,4 +3,101 @@
         <h1>ADMIN SETTINGS</h1>
         <div class="sub-bar mx-auto"></div>
     </div>
+
+    <div class="row mt-5">
+
+        <div class="col-12 col-lg-6 text-center">
+            <div class="row align-items-center justify-content-center mb-3">
+                <mat-icon class="icon-prefix mr-2" matPrefix>work</mat-icon>
+                <strong class="text-uppercase">working range</strong>
+            </div>
+            <form class="w-75 m-auto mb-5" [formGroup]="updateForm">
+                <div class="row justify-content-center">
+                    <mat-form-field class="w-25 mr-5">
+                        <mat-label>Start</mat-label>
+                        <mat-select formControlName="startTime">
+                            <mat-option *ngFor="let startHour of startHourList; let i = index" value="{{ startHour }}">
+                                {{ startHour }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="updateForm.get('startTime').hasError('required')">Required</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-25">
+                        <mat-label>End</mat-label>
+                        <mat-select formControlName="endTime">
+                            <mat-option *ngFor="let startHour of startHourList; let i = index" value="{{ startHour }}">
+                                {{ startHour }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="updateForm.get('endTime').hasError('required')">Required</mat-error>
+                    </mat-form-field>
+                </div>
+            </form>
+
+            <div class="row align-items-center justify-content-center mt-3 mb-3">
+                <mat-icon class="icon-prefix mr-2" matPrefix>work</mat-icon>
+                <strong class="text-uppercase">allow weekends</strong>
+            </div>
+            <form class="w-75 m-auto" [formGroup]="updateForm">
+                <div class="row justify-content-center">
+                    <mat-form-field class="w-25">
+                        <mat-select formControlName="weekends">
+                            <mat-option value="Yes">Yes</mat-option>
+                            <mat-option value="No">No</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="updateForm.get('weekends').hasError('required')">Required</mat-error>
+                    </mat-form-field>
+                </div>
+            </form>
+
+            <button *ngIf="!requestingUpdate" class="submit-btn mt-2" mat-flat-button color="primary">SUBMIT</button>
+            <mat-progress-spinner class="mx-auto mt-2" *ngIf="requestingUpdate" mode="indeterminate"
+                                  [diameter]="30"></mat-progress-spinner>
+        </div>
+
+
+        <div class="col-12 col-lg-6 text-center">
+            <div class="row align-items-center justify-content-center mb-3">
+                <mat-icon class="icon-prefix mr-2" matPrefix>assignment</mat-icon>
+                <strong>EXCEPTIONAL RULES</strong>
+            </div>
+            <form class="w-75 m-auto" [formGroup]="rulesForm">
+                <div class="row justify-content-center">
+                    <mat-form-field class="w-25 mr-4">
+                        <mat-label>Day</mat-label>
+                        <mat-select formControlName="dayWeek">
+                            <mat-option *ngFor="let dayWeek of dayWeekList; let i = index" value="{{ dayWeek }}">
+                                {{ dayWeek }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="rulesForm.get('dayWeek').hasError('required')">Required</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-25 mr-4">
+                        <mat-label>Start</mat-label>
+                        <mat-select formControlName="startTime">
+                            <mat-option *ngFor="let startHour of startHourList; let i = index" value="{{ startHour }}">
+                                {{ startHour }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="rulesForm.get('startTime').hasError('required')">Required</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-25">
+                        <mat-label>End</mat-label>
+                        <mat-select formControlName="endTime">
+                            <mat-option *ngFor="let startHour of startHourList; let i = index" value="{{ startHour }}">
+                                {{ startHour }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="rulesForm.get('endTime').hasError('required')">Required</mat-error>
+                    </mat-form-field>
+                </div>
+            </form>
+            <button *ngIf="!requestingRule" class="submit-btn mt-2 text-uppercase" mat-flat-button color="primary"
+                    (click)="addNewRule()">add new rule
+            </button>
+            <mat-progress-spinner class="mx-auto mt-2" *ngIf="requestingRule" mode="indeterminate"
+                                  [diameter]="30"></mat-progress-spinner>
+        </div>
+
+    </div>
 </div>

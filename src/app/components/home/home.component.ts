@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
       this.userData = this.storage.getStoredUser();
-      this.showView = 'calendar';
+      this.showView = 'settings';
   }
 
 }
